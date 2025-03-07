@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <div class="pads">
@@ -12,8 +13,7 @@
     >
       <path
         d="M7.5 14c3.5899 0 6.5-2.9101 6.5-6.5C14 3.91015 11.0899 1 7.5 1 3.91015 1 1 3.91015 1 7.5 1 11.0899 3.91015 14 7.5 14Z"
-        stroke="#fff"
-      ></path>
+        stroke="#fff"></path>
       <path d="M10 7.5H5" stroke="#fff" stroke-miterlimit="10"></path>
       <path d="M16.9 17 12 12.2" stroke="#fff"></path>
     </svg>
@@ -28,13 +28,8 @@
     >
       <path
         d="M7.5 14c3.5899 0 6.5-2.9101 6.5-6.5C14 3.91015 11.0899 1 7.5 1 3.91015 1 1 3.91015 1 7.5 1 11.0899 3.91015 14 7.5 14Z"
-        stroke="#fff"
-      ></path>
-      <path
-        d="M10 7.5H5M7.5 10V5"
-        stroke-miterlimit="10"
-        stroke="#fff"
-      ></path>
+        stroke="#fff"></path>
+      <path d="M10 7.5H5M7.5 10V5" stroke-miterlimit="10" stroke="#fff"></path>
       <path d="M16.9 17 12 12.2" stroke="#fff"></path>
     </svg>
   </button>
@@ -53,21 +48,23 @@
     const zoomOutBtn = document.getElementById("zoom-out");
     const zoomInBtn = document.getElementById("zoom-in");
     const dragLayer = document.querySelector("#drag-layer");
-    const totalRows = 15;
-    const imagesPerRow = 40;
+    const totalRows = 30;
+    const imagesPerRow = 20;
     const totalImages = totalRows * imagesPerRow;
     let isZoomed = false;
     const images = [];
     const hoverScale = 1.5;
-    
+    const initialGap = 4; // 初始间距，与CSS中的gap相同
+    const zoomScale = 5; // 放大倍数
+
     let activeImages = new Set();
     let lastFrameTime = 0;
     const frameBudget = 16;
-    
+
     function getRandomHeight(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    
+
     const imageCache = new Map();
     const preloadImage = (src) => {
       if (!imageCache.has(src)) {
@@ -77,14 +74,14 @@
       }
       return imageCache.get(src);
     };
-    
+
     for (let i = 1; i <= 50; i++) {
       preloadImage(`/assets/img${i}.jpg`);
     }
-    
+
     function throttle(callback, delay) {
       let isThrottled = false;
-      return function() {
+      return function () {
         if (isThrottled) return;
         isThrottled = true;
         const args = arguments;
@@ -100,61 +97,67 @@
       const img = document.createElement("div");
       img.className = "img";
       img.style.height = `${getRandomHeight(30, 40)}px`;
-      
+
       img.style.transform = "translate3d(0,0,0) scale(0)";
       img.style.willChange = "transform";
 
       const imgElement = document.createElement("img");
       const randomImageNumber = Math.floor(Math.random() * 50) + 1;
       imgElement.src = `/assets/img${randomImageNumber}.jpg`;
-      
+
       imgElement.loading = "lazy";
       imgElement.decoding = "async";
-      
+
       img.appendChild(imgElement);
 
-      img.addEventListener("mouseenter", throttle(() => {
-        if (isZoomed) {
-          activeImages.add(img);
-          gsap.to(img, {
-            scale: 5 * hoverScale,
-            zIndex: 10,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        }
-      }, 50));
-      
-      img.addEventListener("mouseleave", throttle(() => {
-        if (isZoomed) {
-          activeImages.delete(img);
-          gsap.to(img, {
-            scale: 5,
-            zIndex: 1,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        }
-      }, 50));
+      img.addEventListener(
+        "mouseenter",
+        throttle(() => {
+          if (isZoomed) {
+            activeImages.add(img);
+            gsap.to(img, {
+              scale: 5 * hoverScale,
+              zIndex: 10,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        }, 50)
+      );
+
+      img.addEventListener(
+        "mouseleave",
+        throttle(() => {
+          if (isZoomed) {
+            activeImages.delete(img);
+            gsap.to(img, {
+              scale: 5,
+              zIndex: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        }, 50)
+      );
 
       gallery.appendChild(img);
       images.push(img);
     }
 
     gsap.set(images, { opacity: 0, scale: 0 });
-    
+
     const batchSize = 100;
     const totalBatches = Math.ceil(images.length / batchSize);
-    
+
     for (let batch = 0; batch < totalBatches; batch++) {
       const start = batch * batchSize;
       const end = Math.min(start + batchSize, images.length);
       const batchImages = images.slice(start, end);
-      
+
       gsap.to(batchImages, {
         scale: 1,
         opacity: 1,
-        delay: 1 + (batch * 0.2),
+        delay: 1 + batch * 0.2,
         duration: 0.5,
         stagger: {
           amount: 0.8,
@@ -204,21 +207,39 @@
       isZoomed = true;
       dragLayer.style.display = "block";
 
-      const transformData = images.map((img) => {
+      // 先获取所有图片的原始位置
+      const originalPositions = images.map((img) => {
         const rect = img.getBoundingClientRect();
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const distX = (rect.left + rect.width / 2 - centerX) / 100;
-        const distY = (rect.top + rect.height / 2 - centerY) / 100;
-        
         return {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
           element: img,
-          x: distX * 1200,
-          y: distY * 600
         };
       });
+
+      // 计算中心点
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
       
-      const batchSize = 150;
+      // 计算放大后保持相对间距的变换
+      const transformData = originalPositions.map(pos => {
+        // 计算从中心点的方向向量
+        const dirX = pos.x - centerX;
+        const dirY = pos.y - centerY;
+        
+        // 计算缩放后的位置，但保持原始间距的比例
+        // 需要考虑zoomScale缩放因子，图片自身宽度，以及想要保持的间距
+        const scaledX = dirX * (1 + (zoomScale - 1) * 0.8);
+        const scaledY = dirY * (1 + (zoomScale - 1) * 0.8);
+        
+        return {
+          element: pos.element,
+          x: scaledX,
+          y: scaledY
+        };
+      });
+       // 分批执行放大动画
+       const batchSize = 150;
       for (let i = 0; i < transformData.length; i += batchSize) {
         const batch = transformData.slice(i, i + batchSize);
         setTimeout(() => {
@@ -226,7 +247,7 @@
             gsap.to(data.element, {
               x: data.x,
               y: data.y,
-              scale: 5,
+              scale: zoomScale,
               zIndex: 1,
               duration: 2.5,
               ease: "power4.inOut",
@@ -256,27 +277,30 @@
     function animate(timestamp) {
       if (!lastFrameTime) lastFrameTime = timestamp;
       const deltaTime = timestamp - lastFrameTime;
-      
-      if (deltaTime < frameBudget && 
-          !isDragging && 
-          Math.abs(targetX - currentX) <= 0.1 && 
-          Math.abs(targetY - currentY) <= 0.1) {
+
+      if (
+        deltaTime < frameBudget &&
+        !isDragging &&
+        Math.abs(targetX - currentX) <= 0.1 &&
+        Math.abs(targetY - currentY) <= 0.1
+      ) {
         requestAnimationFrame(animate);
         return;
       }
-      
+
       lastFrameTime = timestamp;
-      
-      if (isDragging || 
-          Math.abs(targetX - currentX) > 0.1 || 
-          Math.abs(targetY - currentY) > 0.1) {
-          
+
+      if (
+        isDragging ||
+        Math.abs(targetX - currentX) > 0.1 ||
+        Math.abs(targetY - currentY) > 0.1
+      ) {
         currentX = lerp(currentX, targetX, 0.075);
         currentY = lerp(currentY, targetY, 0.075);
-        
+
         gallery.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
       }
-      
+
       requestAnimationFrame(animate);
     }
     requestAnimationFrame(animate);
@@ -313,7 +337,7 @@
       }
     }
 
-    const handleDragMove = throttle(function(e) {
+    const handleDragMove = throttle(function (e) {
       if (!isDragging) return;
       e.preventDefault();
 
@@ -341,22 +365,22 @@
 
     dragLayer.addEventListener("mousedown", handleDragStart);
     dragLayer.addEventListener("touchstart", handleDragStart);
-    
-    const handleWheel = throttle(function(e) {
+
+    const handleWheel = throttle(function (e) {
       if (!isZoomed) return;
-      
+
       e.preventDefault();
-      
+
       const scrollSpeed = 30;
-      
-      targetY -= e.deltaY * scrollSpeed / 100;
-      targetX -= e.deltaX * scrollSpeed / 100;
-      
+
+      targetY -= (e.deltaY * scrollSpeed) / 100;
+      targetX -= (e.deltaX * scrollSpeed) / 100;
+
       if (e.shiftKey) {
-        targetX -= e.deltaY * scrollSpeed / 100;
+        targetX -= (e.deltaY * scrollSpeed) / 100;
       }
     }, 16);
-    
+
     dragLayer.addEventListener("wheel", handleWheel, { passive: false });
   });
 </script>
@@ -440,7 +464,7 @@
 
   .img {
     width: calc((100% - 160px) / 40);
-    transform: scale(0) translate3d(0,0,0);
+    transform: scale(0) translate3d(0, 0, 0);
     transform-origin: center center;
     will-change: transform;
     pointer-events: none;
@@ -463,4 +487,5 @@
     touch-action: none;
     z-index: 1;
   }
-</style> 
+</style>
+
