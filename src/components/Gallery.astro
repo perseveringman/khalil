@@ -1,0 +1,466 @@
+---
+---
+
+<div class="pads">
+  <button id="zoom-out" class="active">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.5 14c3.5899 0 6.5-2.9101 6.5-6.5C14 3.91015 11.0899 1 7.5 1 3.91015 1 1 3.91015 1 7.5 1 11.0899 3.91015 14 7.5 14Z"
+        stroke="#fff"
+      ></path>
+      <path d="M10 7.5H5" stroke="#fff" stroke-miterlimit="10"></path>
+      <path d="M16.9 17 12 12.2" stroke="#fff"></path>
+    </svg>
+  </button>
+  <button id="zoom-in">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.5 14c3.5899 0 6.5-2.9101 6.5-6.5C14 3.91015 11.0899 1 7.5 1 3.91015 1 1 3.91015 1 7.5 1 11.0899 3.91015 14 7.5 14Z"
+        stroke="#fff"
+      ></path>
+      <path
+        d="M10 7.5H5M7.5 10V5"
+        stroke-miterlimit="10"
+        stroke="#fff"
+      ></path>
+      <path d="M16.9 17 12 12.2" stroke="#fff"></path>
+    </svg>
+  </button>
+</div>
+
+<div id="drag-layer"></div>
+
+<div class="container">
+  <div class="gallery"></div>
+</div>
+
+<script>
+  import gsap from "gsap";
+  document.addEventListener("DOMContentLoaded", () => {
+    const gallery = document.querySelector(".gallery");
+    const zoomOutBtn = document.getElementById("zoom-out");
+    const zoomInBtn = document.getElementById("zoom-in");
+    const dragLayer = document.querySelector("#drag-layer");
+    const totalRows = 15;
+    const imagesPerRow = 40;
+    const totalImages = totalRows * imagesPerRow;
+    let isZoomed = false;
+    const images = [];
+    const hoverScale = 1.5;
+    
+    let activeImages = new Set();
+    let lastFrameTime = 0;
+    const frameBudget = 16;
+    
+    function getRandomHeight(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    const imageCache = new Map();
+    const preloadImage = (src) => {
+      if (!imageCache.has(src)) {
+        const img = new Image();
+        img.src = src;
+        imageCache.set(src, img);
+      }
+      return imageCache.get(src);
+    };
+    
+    for (let i = 1; i <= 50; i++) {
+      preloadImage(`/assets/img${i}.jpg`);
+    }
+    
+    function throttle(callback, delay) {
+      let isThrottled = false;
+      return function() {
+        if (isThrottled) return;
+        isThrottled = true;
+        const args = arguments;
+        const context = this;
+        callback.apply(context, args);
+        setTimeout(() => {
+          isThrottled = false;
+        }, delay);
+      };
+    }
+
+    for (let i = 0; i < totalImages; i++) {
+      const img = document.createElement("div");
+      img.className = "img";
+      img.style.height = `${getRandomHeight(30, 40)}px`;
+      
+      img.style.transform = "translate3d(0,0,0) scale(0)";
+      img.style.willChange = "transform";
+
+      const imgElement = document.createElement("img");
+      const randomImageNumber = Math.floor(Math.random() * 50) + 1;
+      imgElement.src = `/assets/img${randomImageNumber}.jpg`;
+      
+      imgElement.loading = "lazy";
+      imgElement.decoding = "async";
+      
+      img.appendChild(imgElement);
+
+      img.addEventListener("mouseenter", throttle(() => {
+        if (isZoomed) {
+          activeImages.add(img);
+          gsap.to(img, {
+            scale: 5 * hoverScale,
+            zIndex: 10,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      }, 50));
+      
+      img.addEventListener("mouseleave", throttle(() => {
+        if (isZoomed) {
+          activeImages.delete(img);
+          gsap.to(img, {
+            scale: 5,
+            zIndex: 1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      }, 50));
+
+      gallery.appendChild(img);
+      images.push(img);
+    }
+
+    gsap.set(images, { opacity: 0, scale: 0 });
+    
+    const batchSize = 100;
+    const totalBatches = Math.ceil(images.length / batchSize);
+    
+    for (let batch = 0; batch < totalBatches; batch++) {
+      const start = batch * batchSize;
+      const end = Math.min(start + batchSize, images.length);
+      const batchImages = images.slice(start, end);
+      
+      gsap.to(batchImages, {
+        scale: 1,
+        opacity: 1,
+        delay: 1 + (batch * 0.2),
+        duration: 0.5,
+        stagger: {
+          amount: 0.8,
+          grid: "auto",
+          from: "random",
+        },
+        ease: "power1.out",
+      });
+    }
+
+    zoomOutBtn.addEventListener("click", () => {
+      if (!isZoomed) return;
+
+      isZoomed = false;
+      dragLayer.style.display = "none";
+      activeImages.clear();
+
+      const currentTransform = window.getComputedStyle(gallery).transform;
+      gsap.set(gallery, { clearProps: "transform" });
+
+      const tl = gsap.timeline({
+        defaults: {
+          duration: 2.5,
+          ease: "power4.inOut",
+        },
+      });
+
+      tl.fromTo(gallery, { transform: currentTransform }, { x: 0, y: 0 }).to(
+        images,
+        { scale: 1, x: 0, y: 0 },
+        0
+      );
+
+      currentX = 0;
+      currentY = 0;
+      targetX = 0;
+      targetY = 0;
+      isDragging = false;
+
+      zoomOutBtn.classList.add("active");
+      zoomInBtn.classList.remove("active");
+    });
+
+    zoomInBtn.addEventListener("click", () => {
+      if (isZoomed) return;
+
+      isZoomed = true;
+      dragLayer.style.display = "block";
+
+      const transformData = images.map((img) => {
+        const rect = img.getBoundingClientRect();
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const distX = (rect.left + rect.width / 2 - centerX) / 100;
+        const distY = (rect.top + rect.height / 2 - centerY) / 100;
+        
+        return {
+          element: img,
+          x: distX * 1200,
+          y: distY * 600
+        };
+      });
+      
+      const batchSize = 150;
+      for (let i = 0; i < transformData.length; i += batchSize) {
+        const batch = transformData.slice(i, i + batchSize);
+        setTimeout(() => {
+          batch.forEach(data => {
+            gsap.to(data.element, {
+              x: data.x,
+              y: data.y,
+              scale: 5,
+              zIndex: 1,
+              duration: 2.5,
+              ease: "power4.inOut",
+            });
+          });
+        }, i / transformData.length * 100);
+      }
+
+      zoomOutBtn.classList.remove("active");
+      zoomInBtn.classList.add("active");
+    });
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let initialX = 0;
+    let initialY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    function lerp(start, end, factor) {
+      return start + (end - start) * factor;
+    }
+
+    function animate(timestamp) {
+      if (!lastFrameTime) lastFrameTime = timestamp;
+      const deltaTime = timestamp - lastFrameTime;
+      
+      if (deltaTime < frameBudget && 
+          !isDragging && 
+          Math.abs(targetX - currentX) <= 0.1 && 
+          Math.abs(targetY - currentY) <= 0.1) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      
+      lastFrameTime = timestamp;
+      
+      if (isDragging || 
+          Math.abs(targetX - currentX) > 0.1 || 
+          Math.abs(targetY - currentY) > 0.1) {
+          
+        currentX = lerp(currentX, targetX, 0.075);
+        currentY = lerp(currentY, targetY, 0.075);
+        
+        gallery.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      }
+      
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    function handleDragStart(e) {
+      if (!isZoomed) return;
+
+      isDragging = true;
+      dragLayer.classList.add("active");
+
+      startX = e.type === "mousedown" ? e.pageX : e.touches[0].pageX;
+      startY = e.type === "mousedown" ? e.pageY : e.touches[0].pageY;
+
+      const transform = window.getComputedStyle(gallery).transform;
+      const matrix = new DOMMatrix(transform);
+      initialX = matrix.m41;
+      initialY = matrix.m42;
+
+      currentX = initialX;
+      currentY = initialY;
+      targetX = initialX;
+      targetY = initialY;
+
+      if (e.type === "mousedown") {
+        document.addEventListener("mousemove", handleDragMove, {
+          passive: false,
+        });
+        document.addEventListener("mouseup", handleDragEnd);
+      } else {
+        document.addEventListener("touchmove", handleDragMove, {
+          passive: false,
+        });
+        document.addEventListener("touchend", handleDragEnd);
+      }
+    }
+
+    const handleDragMove = throttle(function(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+
+      const currentPositionX =
+        e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
+      const currentPositionY =
+        e.type === "mousemove" ? e.pageY : e.touches[0].pageY;
+
+      const deltaX = currentPositionX - startX;
+      const deltaY = currentPositionY - startY;
+
+      targetX = initialX + deltaX;
+      targetY = initialY + deltaY;
+    }, 16);
+
+    function handleDragEnd() {
+      isDragging = false;
+      dragLayer.classList.remove("active");
+
+      document.removeEventListener("mousemove", handleDragMove);
+      document.removeEventListener("touchmove", handleDragMove);
+      document.removeEventListener("mouseup", handleDragEnd);
+      document.removeEventListener("touchend", handleDragEnd);
+    }
+
+    dragLayer.addEventListener("mousedown", handleDragStart);
+    dragLayer.addEventListener("touchstart", handleDragStart);
+    
+    const handleWheel = throttle(function(e) {
+      if (!isZoomed) return;
+      
+      e.preventDefault();
+      
+      const scrollSpeed = 30;
+      
+      targetY -= e.deltaY * scrollSpeed / 100;
+      targetX -= e.deltaX * scrollSpeed / 100;
+      
+      if (e.shiftKey) {
+        targetX -= e.deltaY * scrollSpeed / 100;
+      }
+    }, 16);
+    
+    dragLayer.addEventListener("wheel", handleWheel, { passive: false });
+  });
+</script>
+
+<style>
+  .logo {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    margin: 2em auto;
+    padding: 8px 0;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border-radius: 8px;
+    z-index: 2;
+  }
+
+  .logo p {
+    text-transform: uppercase;
+    font-family: "PP Neue Montreal", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    user-select: none;
+  }
+
+  .pads {
+    position: fixed;
+    left: 50%;
+    bottom: 2em;
+    transform: translateX(-50%);
+    padding: 0 4px;
+    display: flex;
+    gap: 0.2em;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    backdrop-filter: blur(20px);
+    border-radius: 8px;
+    z-index: 2;
+  }
+
+  .pads button {
+    opacity: 1;
+    outline: none;
+    border: none;
+    background: none;
+    padding: 8px;
+    transition: 0.5s opacity;
+    pointer-events: all;
+  }
+
+  .pads button.active {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150vw;
+    height: 150vh;
+    overflow: visible;
+  }
+
+  .gallery {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 4px;
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .img {
+    width: calc((100% - 160px) / 40);
+    transform: scale(0) translate3d(0,0,0);
+    transform-origin: center center;
+    will-change: transform;
+    pointer-events: none;
+    opacity: 0;
+    backface-visibility: hidden;
+  }
+
+  .img img {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  #drag-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    touch-action: none;
+    z-index: 1;
+  }
+</style> 
