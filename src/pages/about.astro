@@ -1,523 +1,514 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
-import { ViewTransitions } from 'astro:transitions';
 import Nav from '../components/nav.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!doctype html>
-<html lang="zh">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Gregory Lalle Awwwards Rebuild | Codegrid</title>
-        <ViewTransitions />
-        <style is:global>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+<Layout title="Khalil Fong">
+    <Nav />
+    <div class="container">
+        <div class="menu">
+            <!-- <div class="menu-nav"><p class="menu-close"> <a href="/album">Close</a></p></div> -->
 
-            html,
-            body {
-                width: 100%;
-                height: 100%;
-                font-family: "Saans TRIAL";
-                background: #000;
-            }
+            <div class="menu-col menu-img">
+                <img id="img-1" src="./assets/about/img1.jpg" alt="" />
+                <img id="img-2" src="./assets/about/img1.jpg" alt="" />
+                <img id="img-3" src="./assets/about/img1.jpg" alt="" />
+            </div>
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            p,a {
-                color: #fff;
-                font-family: "Akkurat Mono";
-                font-size: 12px;
-                font-weight: 300;
-                text-transform: uppercase;
-                text-decoration: none;
-            }
-
-            .hero {
-                position: absolute;
-                top: 0;
-                width: 100vw;
-                height: 100vh;
-                background: url("/assets/hero.jpg") no-repeat 50% 50%;
-                background-size: cover;
-                overflow: hidden;
-                z-index: 0;
-            }
-
-            .hero .header {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                display: flex;
-                gap: 0.5em;
-            }
-
-            sup {
-                position: relative;
-                top: 0.25em;
-                color: #fff;
-                font-size: 3vw;
-            }
-
-            .hero h1 {
-                color: #fff;
-                font-size: 12vw;
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: -0.024em;
-                line-height: 100%;
-            }
-
-            nav {
-                position: fixed;
-                top: 0;
-                padding: 1.5em 2em;
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                z-index: 1;
-            }
-
-            .logo {
-                width: 24px;
-            }
-
-            .menu-open,
-            .menu-close {
-                cursor: pointer;
-            }
-
-            .menu {
-                position: fixed;
-                top: 0;
-                padding: 1.5em;
-                width: 100vw;
-                height: 100vh;
-                background: #101010;
-                color: #fff;
-                display: flex;
-                gap: 1.5em;
-                /* clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); */
-                overflow: hidden;
-                z-index: 2;
-                /* pointer-events: none; */
-            }
-
-            .menu-nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 2;
-                padding: 2em;
-                width: 100%;
-                display: flex;
-                justify-content: flex-end;
-            }
-
-            .menu-img {
-                position: relative;
-                flex: 3;
-                overflow: hidden;
-                opacity: 0;
-            }
-
-            .menu-items {
-                position: relative;
-                top: 0px;
-                flex: 1;
-                padding: 3em;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                z-index: 1;
-            }
-
-            .menu-img img {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            #img-1 {
-                opacity: 0.9;
-            }
-
-            #img-2 {
-                opacity: 0.7;
-            }
-
-            #img-3 {
-                opacity: 0.5;
-            }
-
-            #img-4 {
-                opacity: 0.3;
-            }
-
-            .menu-logo {
-                width: 48px;
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-                position: relative;
-                cursor: pointer;
-                overflow: hidden;
-                transform: scale(2);
-            }
-
-            .menu-logo div {
-                position: relative;
-                transition: opacity 0.4s ease;
-            }
-
-            .menu-emoji {
-                position: relative;
-                display: inline-block;
-                cursor: pointer;
-                z-index: 2;
-            }
-
-            .menu-links .logo-hover {
-                position: absolute;
-                top: 0;
-                left: 0;
-                opacity: 0;
-                transition: opacity 1.25s ease;
-            }
-
-            .menu-links .logo-default {
-                opacity: 1;
-                transition: opacity 1.25s ease;
-            }
-
-            .menu-links {
-                margin-top: 60px;
-            }
-
-            /* .menu-links:hover .logo-default {
-                opacity: 0;
-            }
-
-            .menu-links:hover .logo-hover {
-                opacity: 1;
-            } */
-
-            .menu-link p {
-                position: relative;
-                font-family: "Saans TRIAL";
-                font-size: 36px;
-                font-weight: 700;
-                opacity: 0;
-            }
-
-            .menu-link a {
-                text-decoration: none;
-                color: #fff;
-            }
-
-            .menu-footer {
-                width: 100%;
-                display: flex;
-            }
-
-            .menu-sub-col {
-                flex: 1;
-            }
-
-            .menu-sub-item p {
-                position: relative;
-            }
-
-            .menu-link,
-            .menu-sub-item {
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-            }
-
-            @media (max-width: 900px) {
-                .menu-img {
-                    display: none;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <Nav />
-        <div class="container">
-            <div class="menu">
-                <!-- <div class="menu-nav"><p class="menu-close"> <a href="/album">Close</a></p></div> -->
-
-                <div class="menu-col menu-img">
-                    <img id="img-1" src="./assets/about/img1.jpg" alt="" />
-                    <img id="img-2" src="./assets/about/img1.jpg" alt="" />
-                    <img id="img-3" src="./assets/about/img1.jpg" alt="" />
-                    <!-- <img id="img-4" src="./assets/img2.jpg" alt="" /> -->
+            <div class="menu-col menu-items">
+                <div class="menu-links">
+                    <div class="menu-link">
+                        <p>谨以此网站</p>
+                    </div>
+                    <div class="menu-link">
+                        <p>纪念 Khalil</p>
+                    </div>
+                    <div class="menu-link">
+                        <p>晚安，</p>
+                    </div>
+                    <div class="menu-link">
+                        <p>
+                            愿世界大同
+                            <span class="menu-emoji">
+                                <span class="logo-default">😎</span>
+                                <span class="logo-hover">😭</span>
+                            </span>
+                        </p>
+                    </div>
                 </div>
 
-                <div class="menu-col menu-items">
-                    <div class="menu-links">
-                        <div class="menu-link">
-                            <p>谨以此网站</p>
+                <div class="menu-footer">
+                    <div class="menu-sub-col">
+                        <div class="menu-sub-item"><p>Connect</p></div>
+                        <div class="menu-sub-item"><p>Break</p></div>
+                        <br />
+                        <div class="menu-sub-item"><p>Explore</p></div>
+                        <div class="menu-sub-item"><p>Break</p></div>
+                        <br />
+                        <div class="menu-sub-item"><p>Contact Us</p></div>
+                        <br />
+                        <div class="menu-sub-item"><p>Ocean City</p></div>
+                        <div class="menu-sub-item">
+                            <p>Rhythmic Sound</p>
                         </div>
-                        <div class="menu-link">
-                            <p>纪念 Khalil</p>
+                        <div class="menu-sub-item">
+                            <p>2000 Coastal Hwy</p>
                         </div>
-                        <div class="menu-link">
-                            <p>晚安，</p>
+                        <div class="menu-sub-item">
+                            <p>Ocean City, MD 21842</p>
                         </div>
-                        <div class="menu-link">
-                            <p>
-                                愿世界大同
-                                <span class="menu-emoji">
-                                    <span class="logo-default">😎</span>
-                                    <span class="logo-hover">😭</span>
-                                </span>
-                            </p>
-                        </div>
+                        <br />
                     </div>
-
-                    <div class="menu-footer">
-                        <div class="menu-sub-col">
-                            <div class="menu-sub-item"><p>Connect</p></div>
-                            <div class="menu-sub-item"><p>Break</p></div>
-                            <br />
-                            <div class="menu-sub-item"><p>Explore</p></div>
-                            <div class="menu-sub-item"><p>Break</p></div>
-                            <br />
-                            <div class="menu-sub-item"><p>Contact Us</p></div>
-                            <br />
-                            <div class="menu-sub-item"><p>Ocean City</p></div>
-                            <div class="menu-sub-item">
-                                <p>Rhythmic Sound</p>
-                            </div>
-                            <div class="menu-sub-item">
-                                <p>2000 Coastal Hwy</p>
-                            </div>
-                            <div class="menu-sub-item">
-                                <p>Ocean City, MD 21842</p>
-                            </div>
-                            <br />
+                    <div class="menu-sub-col">
+                        <div class="menu-sub-item"><p>Instagram</p></div>
+                        <div class="menu-sub-item"><p>Youtube</p></div>
+                        <br />
+                        <div class="menu-sub-item"><p>Spotify</p></div>
+                        <div class="menu-sub-item"><p>Mixcloud</p></div>
+                        <br />
+                        <div class="menu-sub-item"><p>Email</p></div>
+                        <br />
+                        <div class="menu-sub-item"><p>Vice City</p></div>
+                        <div class="menu-sub-item"><p>Echo Beats</p></div>
+                        <div class="menu-sub-item">
+                            <p>933 South View Ave</p>
                         </div>
-                        <div class="menu-sub-col">
-                            <div class="menu-sub-item"><p>Instagram</p></div>
-                            <div class="menu-sub-item"><p>Youtube</p></div>
-                            <br />
-                            <div class="menu-sub-item"><p>Spotify</p></div>
-                            <div class="menu-sub-item"><p>Mixcloud</p></div>
-                            <br />
-                            <div class="menu-sub-item"><p>Email</p></div>
-                            <br />
-                            <div class="menu-sub-item"><p>Vice City</p></div>
-                            <div class="menu-sub-item"><p>Echo Beats</p></div>
-                            <div class="menu-sub-item">
-                                <p>933 South View Ave</p>
-                            </div>
-                            <div class="menu-sub-item">
-                                <p>Vice City, VC 3270</p>
-                            </div>
-                            <br />
+                        <div class="menu-sub-item">
+                            <p>Vice City, VC 3270</p>
                         </div>
+                        <br />
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 使用Astro的客户端脚本标签 -->
-        <script>
-            // 导入GSAP和Lenis库
-            import { gsap } from "gsap";
-            
-            // 使用Astro特定的页面加载事件替代DOMContentLoaded
-            document.addEventListener("astro:page-load", function () {
-                let isOpen = false;
-                const defaultEase = "power4.inOut";
+    </div>
+    <!-- 使用Astro的客户端脚本标签 -->
+    <script>
+        // 导入GSAP和Lenis库
+        import { gsap } from "gsap";
+        
+        // 使用Astro特定的页面加载事件替代DOMContentLoaded
+        document.addEventListener("astro:page-load", function () {
+            let isOpen = false;
+            const defaultEase = "power4.inOut";
 
-                gsap.set(".menu-logo div", { y: 50 });
-                gsap.set(".menu-link p", { y: 40 });
-                gsap.set(".menu-sub-item p", { y: 12 });
-                gsap.set(["#img-2, #img-3, #img-4"], { top: "150%" });
+            gsap.set(".menu-logo div", { y: 50 });
+            gsap.set(".menu-link p", { y: 40 });
+            gsap.set(".menu-sub-item p", { y: 12 });
+            gsap.set(["#img-2, #img-3, #img-4"], { top: "150%" });
 
-                const openMenu = () => {
-                    // gsap.to(".menu", {
-                    //     clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-                    //     pointerEvents: "all",
-                    //     duration: 1.25,
-                    //     ease: defaultEase,
-                    // });
+            const openMenu = () => {
+                // gsap.to(".menu", {
+                //     clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+                //     pointerEvents: "all",
+                //     duration: 1.25,
+                //     ease: defaultEase,
+                // });
 
-                    gsap.to(".hero", {
-                        top: "-50%",
-                        opacity: 0,
-                        duration: 1.25,
-                        ease: defaultEase,
-                    });
+                gsap.to(".hero", {
+                    top: "-50%",
+                    opacity: 0,
+                    duration: 1.25,
+                    ease: defaultEase,
+                });
 
-                    gsap.to(".menu-img", {
-                        opacity: 1,
-                        duration: 1.25,
-                        delay: 0.2,
-                        ease: defaultEase,
-                    });
+                gsap.to(".menu-img", {
+                    opacity: 1,
+                    duration: 1.25,
+                    delay: 0.2,
+                    ease: defaultEase,
+                });
 
-                    gsap.to(".menu-logo div", {
-                        y: 0,
-                        duration: 1.25,
-                        delay: 0.25,
-                        ease: "power3.out",
-                    });
+                gsap.to(".menu-logo div", {
+                    y: 0,
+                    duration: 1.25,
+                    delay: 0.25,
+                    ease: "power3.out",
+                });
 
-                    gsap.to(".menu-link p", {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.25,
-                        stagger: 0.075,
-                        delay: 0.25,
-                        ease: "power3.out",
-                    });
+                gsap.to(".menu-link p", {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.25,
+                    stagger: 0.075,
+                    delay: 0.25,
+                    ease: "power3.out",
+                });
 
-                    gsap.to(".menu-sub-item p", {
-                        y: 0,
-                        duration: 1.25,
-                        stagger: 0.05,
-                        delay: 0.25,
-                        ease: "power3.out",
-                    });
+                gsap.to(".menu-sub-item p", {
+                    y: 0,
+                    duration: 1.25,
+                    stagger: 0.05,
+                    delay: 0.25,
+                    ease: "power3.out",
+                });
 
-                    gsap.to(["#img-2, #img-3, #img-4"], {
-                        top: "50%",
-                        duration: 1.25,
-                        ease: "power3.out",
-                        // ease: defaultEase,
-                        stagger: 0.05,
-                        delay: 0.25,
-                        onComplete: () => {
-                            gsap.set(".hero", { top: "50%" });
-                            isOpen = !isOpen;
+                gsap.to(["#img-2, #img-3, #img-4"], {
+                    top: "50%",
+                    duration: 1.25,
+                    ease: "power3.out",
+                    // ease: defaultEase,
+                    stagger: 0.05,
+                    delay: 0.25,
+                    onComplete: () => {
+                        gsap.set(".hero", { top: "50%" });
+                        isOpen = !isOpen;
 
-                            // 在菜单打开完成后触发一次初始动画
-                            setTimeout(() => {
-                                // 模拟一个初始鼠标位置（稍微偏离中心点）
-                                mouse.x = cx + 100;
-                                mouse.y = cy - 50;
-                                update();
-                            }, 100);
-                        },
-                    });
-                };
+                        // 在菜单打开完成后触发一次初始动画
+                        setTimeout(() => {
+                            // 模拟一个初始鼠标位置（稍微偏离中心点）
+                            mouse.x = cx + 100;
+                            mouse.y = cy - 50;
+                            update();
+                        }, 100);
+                    },
+                });
+            };
 
-                const closeMenu = () => {
-                    gsap.to(".menu", {
-                        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-                        pointerEvents: "none",
-                        duration: 1.25,
-                        ease: defaultEase,
-                    });
+            const closeMenu = () => {
+                gsap.to(".menu", {
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+                    pointerEvents: "none",
+                    duration: 1.25,
+                    ease: defaultEase,
+                });
 
-                    gsap.to(".menu-items", {
-                        top: "-300px",
-                        opacity: 0,
-                        duration: 1.25,
-                        ease: defaultEase,
-                    });
+                gsap.to(".menu-items", {
+                    top: "-300px",
+                    opacity: 0,
+                    duration: 1.25,
+                    ease: defaultEase,
+                });
 
-                    gsap.to(".hero", {
-                        top: "0%",
-                        opacity: 1,
-                        duration: 1.25,
-                        ease: defaultEase,
-                        onComplete: () => {
-                            gsap.set(".menu", {
-                                clipPath:
-                                    "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-                            });
-                            gsap.set(".menu-logo div", { y: 40 });
-                            gsap.set(".menu-link p", { y: 40 });
-                            gsap.set(".menu-sub-item p", { y: 12 });
-                            gsap.set(".menu-items", { opacity: 1, top: "0px" });
-                            gsap.set(["#img-2, #img-3, #img-4"], {
-                                top: "150%",
-                            });
-
-                            isOpen = !isOpen;
-                        },
-                    });
-                };
-
-                // 页面加载时直接打开菜单
-                openMenu();
-                isOpen = true;
-
-                // 添加3秒延时后设置logo-hover的opacity为1
-                // setTimeout(() => {
-                    gsap.to(".logo-hover", {
-                        opacity: 1,
-                        duration: 0.5,
-                        delay: 5,
-                        ease: "power2.out"
-                    });
-                // }, 3000);
-
-                const menuImgContainer = document.querySelector(".menu-img");
-                const images = document.querySelectorAll(".menu-img img");
-                let mouse = { x: 0, y: 0 };
-                let cx = window.innerWidth / 2;
-                let cy = window.innerHeight / 2;
-
-                const scales = [0.9, 0.95, 0.99, 0.9];
-
-                function update() {
-                    let dx = mouse.x - cx;
-                    let dy = mouse.y - cy;
-
-                    let tiltx = (dy / cy) * 20;
-                    let tilty = (dx / cx) * 20;
-
-                    gsap.to(menuImgContainer, {
-                        duration: 2,
-                        transform: `rotate3d(${tiltx}, ${tilty}, 0, 15deg)`,
-                        ease: "power3.out",
-                    });
-
-                    images.forEach((img, index) => {
-                        let parallaxX = -(dx * (index + 1)) / 100;
-                        let parallaxY = -(dy * (index + 1)) / 100;
-
-                        let transformStyles = `translate(calc(-50% + ${parallaxX}px), calc(-50% + ${parallaxY}px)) scale(${scales[index]})`;
-                        gsap.to(img, {
-                            duration: 2,
-                            transform: transformStyles,
-                            ease: "power3.out",
+                gsap.to(".hero", {
+                    top: "0%",
+                    opacity: 1,
+                    duration: 1.25,
+                    ease: defaultEase,
+                    onComplete: () => {
+                        gsap.set(".menu", {
+                            clipPath:
+                                "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
                         });
+                        gsap.set(".menu-logo div", { y: 40 });
+                        gsap.set(".menu-link p", { y: 40 });
+                        gsap.set(".menu-sub-item p", { y: 12 });
+                        gsap.set(".menu-items", { opacity: 1, top: "0px" });
+                        gsap.set(["#img-2, #img-3, #img-4"], {
+                            top: "150%",
+                        });
+
+                        isOpen = !isOpen;
+                    },
+                });
+            };
+
+            // 页面加载时直接打开菜单
+            openMenu();
+            isOpen = true;
+
+            // 添加3秒延时后设置logo-hover的opacity为1
+            // setTimeout(() => {
+                gsap.to(".logo-hover", {
+                    opacity: 1,
+                    duration: 0.5,
+                    delay: 5,
+                    ease: "power2.out"
+                });
+            // }, 3000);
+
+            const menuImgContainer = document.querySelector(".menu-img");
+            const images = document.querySelectorAll(".menu-img img");
+            let mouse = { x: 0, y: 0 };
+            let cx = window.innerWidth / 2;
+            let cy = window.innerHeight / 2;
+
+            const scales = [0.9, 0.905, 0.91, 0.9];
+
+            function update() {
+                let dx = mouse.x - cx;
+                let dy = mouse.y - cy;
+
+                let tiltx = (dy / cy) * 20;
+                let tilty = (dx / cx) * 20;
+
+                gsap.to(menuImgContainer, {
+                    duration: 2,
+                    transform: `rotate3d(${tiltx}, ${tilty}, 0, 15deg)`,
+                    ease: "power3.out",
+                });
+
+                images.forEach((img, index) => {
+                    let parallaxX = -(dx * (index + 1)) / 100;
+                    let parallaxY = -(dy * (index + 1)) / 100;
+
+                    let transformStyles = `translate(calc(-50% + ${parallaxX}px), calc(-50% + ${parallaxY}px)) scale(${scales[index]})`;
+                    gsap.to(img, {
+                        duration: 2,
+                        transform: transformStyles,
+                        ease: "power3.out",
                     });
-                }
-
-                document.body.addEventListener("mousemove", function (event) {
-                    mouse.x = event.clientX;
-                    mouse.y = event.clientY;
-                    update();
                 });
+            }
 
-                window.addEventListener("resize", function () {
-                    cx = window.innerWidth / 2;
-                    cy = window.innerHeight / 2;
-                });
-
-                // 页面加载后也设置一个初始位置
-                // 这是为了防止用户在菜单打开前就看到静态图片
-                setTimeout(() => {
-                    mouse.x = cx + 50;
-                    mouse.y = cy + 50;
-                    update();
-                }, 500);
+            document.body.addEventListener("mousemove", function (event) {
+                mouse.x = event.clientX;
+                mouse.y = event.clientY;
+                update();
             });
-        </script>
-    </body>
-</html>
+
+            window.addEventListener("resize", function () {
+                cx = window.innerWidth / 2;
+                cy = window.innerHeight / 2;
+            });
+
+            // 页面加载后也设置一个初始位置
+            // 这是为了防止用户在菜单打开前就看到静态图片
+            setTimeout(() => {
+                mouse.x = cx + 50;
+                mouse.y = cy + 50;
+                update();
+            }, 500);
+        });
+    </script>
+</Layout>
+
+<style is:global>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: "Saans TRIAL";
+        background: #000;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    p,a {
+        color: #fff;
+        font-family: "Akkurat Mono";
+        font-size: 12px;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+
+    .hero {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: url("/assets/hero.jpg") no-repeat 50% 50%;
+        background-size: cover;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .hero .header {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        gap: 0.5em;
+    }
+
+    sup {
+        position: relative;
+        top: 0.25em;
+        color: #fff;
+        font-size: 3vw;
+    }
+
+    .hero h1 {
+        color: #fff;
+        font-size: 12vw;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.024em;
+        line-height: 100%;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        padding: 1.5em 2em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+    }
+
+    .logo {
+        width: 24px;
+    }
+
+    .menu-open,
+    .menu-close {
+        cursor: pointer;
+    }
+
+    .menu {
+        position: fixed;
+        top: 0;
+        padding: 1.5em;
+        width: 100vw;
+        height: 100vh;
+        background: #101010;
+        color: #fff;
+        display: flex;
+        gap: 1.5em;
+        /* clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); */
+        overflow: hidden;
+        z-index: 2;
+        /* pointer-events: none; */
+    }
+
+    .menu-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        padding: 2em;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .menu-img {
+        position: relative;
+        flex: 3;
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    .menu-items {
+        position: relative;
+        top: 0px;
+        flex: 1;
+        padding: 3em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 1;
+    }
+
+    .menu-img img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #img-1 {
+        opacity: 0.9;
+    }
+
+    #img-2 {
+        opacity: 0.7;
+    }
+
+    #img-3 {
+        opacity: 0.5;
+    }
+
+    #img-4 {
+        opacity: 0.3;
+    }
+
+    .menu-logo {
+        width: 48px;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        transform: scale(2);
+    }
+
+    .menu-logo div {
+        position: relative;
+        transition: opacity 0.4s ease;
+    }
+
+    .menu-emoji {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .menu-links .logo-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 1.25s ease;
+    }
+
+    .menu-links .logo-default {
+        opacity: 1;
+        transition: opacity 1.25s ease;
+    }
+
+    .menu-links {
+        margin-top: 60px;
+    }
+
+    /* .menu-links:hover .logo-default {
+        opacity: 0;
+    }
+
+    .menu-links:hover .logo-hover {
+        opacity: 1;
+    } */
+
+    .menu-link p {
+        position: relative;
+        font-family: "Saans TRIAL";
+        font-size: 36px;
+        font-weight: 700;
+        opacity: 0;
+    }
+
+    .menu-link a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .menu-footer {
+        width: 100%;
+        display: flex;
+    }
+
+    .menu-sub-col {
+        flex: 1;
+    }
+
+    .menu-sub-item p {
+        position: relative;
+    }
+
+    .menu-link,
+    .menu-sub-item {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    @media (max-width: 900px) {
+        .menu-img {
+            display: none;
+        }
+    }
+</style>

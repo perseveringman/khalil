@@ -10,7 +10,7 @@ import Nav from '../components/nav.astro';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gregory Lalle Awwwards Rebuild | Codegrid</title>
+    <title>Khalil Fong</title>
     <ViewTransitions />
     <style is:global>
       ::-webkit-scrollbar {
@@ -713,7 +713,7 @@ import Nav from '../components/nav.astro';
         const imgElements = document.querySelectorAll(".img img");
 
         // 设置初始预览图片为第一个图片元素
-        if (imgElements.length > 0) {
+        if (imgElements.length > 0 && previewImg) {
           previewImg.src = imgElements[0].src;
         }
 
@@ -722,8 +722,8 @@ import Nav from '../components/nav.astro';
             trigger: img,
             start: "top 50%",
             end: "bottom 50%",
-            onEnter: () => (previewImg.src = img.src),
-            onEnterBack: () => (previewImg.src = img.src),
+            onEnter: () => previewImg && (previewImg.src = img.src),
+            onEnterBack: () => previewImg && (previewImg.src = img.src),
           });
         });
 

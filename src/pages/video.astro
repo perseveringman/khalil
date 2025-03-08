@@ -10,7 +10,8 @@ import Nav from "../components/nav.astro";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Camille Mormal Slider | Codegrid</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <title>Khalil Fong</title>
         <ViewTransitions />
     </head>
     <body>
@@ -218,6 +219,7 @@ import Nav from "../components/nav.astro";
     }
 
     .slider-title {
+        opacity: 0;
         position: absolute;
         bottom: 150px;
         left: 50%;
@@ -241,6 +243,7 @@ import Nav from "../components/nav.astro";
     }
 
     .slider-indicators {
+        opacity: 0;
         position: absolute;
         bottom: 150px;
         left: 50%;
@@ -271,6 +274,7 @@ import Nav from "../components/nav.astro";
     }
 
     .preview-nav {
+        opacity: 0;
         background: rgba(0, 0, 0, 0.5);
         color: white;
         border: none;
@@ -680,7 +684,7 @@ import Nav from "../components/nav.astro";
                 return;
             }
 
-            const sliderWidth = document.querySelector(".slider").clientWidth;
+            const sliderWidth = document.querySelector(".slider") && document.querySelector(".slider").clientWidth;
             const clickPosition = event.clientX;
 
             if (clickPosition < sliderWidth / 2 && currentImg !== 1) {

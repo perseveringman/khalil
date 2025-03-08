@@ -1,8 +1,7 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
-import { ViewTransitions } from 'astro:transitions';
-import Nav from '../components/nav.astro';
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -10,7 +9,7 @@ import Nav from '../components/nav.astro';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gregory Lalle Awwwards Rebuild | Codegrid</title>
+    <title>Khalil Fong</title>
     <ViewTransitions />
     <style is:global>
       * {
@@ -145,7 +144,7 @@ import Nav from '../components/nav.astro';
         font-size: 2rem;
       }
 
-      .nav {
+      /* .nav {
         position: absolute;
         right: 0;
         width: 50%;
@@ -163,6 +162,23 @@ import Nav from '../components/nav.astro';
         position: relative;
         font-size: 16px;
         font-weight: 500;
+      } */
+
+      .nav {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        display: flex;
+      }
+      .nav a {
+        margin-left: 10px;
+        color: #fff;
+        font-family: "Akkurat Mono";
+        font-size: 18px;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-decoration: none;
       }
 
       .team-img {
@@ -232,8 +248,12 @@ import Nav from '../components/nav.astro';
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
       }
 
+      .nav-item a {
+        opacity: 0;
+      }
+
       .word h1,
-      .nav-item p,
+      .nav-item a,
       .site-info h2 .line span,
       .line p {
         position: relative;
@@ -246,14 +266,14 @@ import Nav from '../components/nav.astro';
       }
 
       .word h1,
-      .nav-item p,
+      .nav-item a,
       .line p {
         transform: translateY(100%);
       }
     </style>
   </head>
   <body>
-    <Nav />
+    <!-- <Nav /> -->
     <div class="container">
       <div class="revealers">
         <div class="revealer r-1"></div>
@@ -283,16 +303,19 @@ import Nav from '../components/nav.astro';
 
         <div class="nav">
           <div class="nav-item">
-            <p>About</p>
+            <a href="/">首页</a>
           </div>
           <div class="nav-item">
-            <p>Work</p>
+            <a href="/album">专辑</a>
           </div>
           <div class="nav-item">
-            <p>Journal</p>
+            <a href="/gallery">照片</a>
           </div>
           <div class="nav-item">
-            <p>Contact</p>
+            <a href="/video">视频</a>
+          </div>
+          <div class="nav-item">
+            <a href="/about">关于</a>
           </div>
         </div>
 
@@ -342,8 +365,8 @@ import Nav from '../components/nav.astro';
       import { CustomEase } from "gsap/CustomEase";
       import { Flip } from "gsap/Flip";
       import SplitType from "split-type";
-      gsap.registerPlugin(CustomEase)
-      gsap.registerPlugin(Flip)
+      gsap.registerPlugin(CustomEase);
+      gsap.registerPlugin(Flip);
 
       // 将DOMContentLoaded改为astro:page-load
       document.addEventListener("astro:page-load", () => {
@@ -442,8 +465,9 @@ import Nav from '../components/nav.astro';
               },
             });
           })
-          .to(".word h1, .nav-item p, .line p, .site-info h2 .line span", {
+          .to(".word h1, .nav-item a, .line p, .site-info h2 .line span", {
             y: 0,
+            opacity: 1,
             duration: 3,
             ease: "hop2",
             stagger: 0.1,
