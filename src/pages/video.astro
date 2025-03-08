@@ -1,0 +1,643 @@
+---
+// Astro组件前置内容
+// 在这里可以添加任何服务器端代码或导入
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Camille Mormal Slider | Codegrid</title>
+    </head>
+    <body>
+        <div class="slider">
+            <div class="slider-images">
+                <div class="img">
+                    <img src="./assets/video/img1.jpg" alt="" />
+                    <video src="./assets/video/video1.mp4" loop></video>
+                </div>
+            </div>
+
+            <div class="slider-counter">
+                <div class="counter">
+                    <p>1</p>
+                    <p>2</p>
+                    <p>3</p>
+                    <p>4</p>
+                    <p>5</p>
+                </div>
+                <div><p>&mdash;</p></div>
+                <div><p>5</p></div>
+            </div>
+
+            <div class="slider-indicators">
+                <p>+</p>
+                <p>+</p>
+            </div>
+
+            <div class="slider-title">
+                <div class="slider-title-wrapper">
+                    <p>The Revival Ensemble</p>
+                    <p>Above The Canvas</p>
+                    <p>Harmony in Every Note</p>
+                    <p>Redefining Imagination</p>
+                    <p>From Earth to Expression</p>
+                </div>
+            </div>
+
+            <div class="slider-preview-container">
+                <button class="preview-nav prev">&lt;</button>
+                <div class="slider-preview">
+                    <div class="preview active">
+                        <img src="./assets/video/img1.jpg" alt="" />
+                    </div>
+                    <div class="preview">
+                        <img src="./assets/video/img2.jpg" alt="" />
+                    </div>
+                    <div class="preview">
+                        <img src="./assets/video/img3.jpg" alt="" />
+                    </div>
+                    <div class="preview">
+                        <img src="./assets/video/img4.jpg" alt="" />
+                    </div>
+                    <div class="preview">
+                        <img src="./assets/video/img5.jpg" alt="" />
+                    </div>
+                </div>
+                <button class="preview-nav next">&gt;</button>
+            </div>
+        </div>
+    </body>
+</html>
+
+<style is:global>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: "Inter";
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    a,
+    p {
+        text-decoration: none;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        padding: 2em;
+        display: flex;
+        justify-content: center;
+        gap: 2em;
+        z-index: 2;
+    }
+
+    nav a {
+        opacity: 0.5;
+    }
+
+    nav a#active {
+        opacity: 1;
+    }
+
+    .slider {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .slider-images {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .img video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* z-index: 1; */
+        opacity: 0; /* 默认隐藏视频 */
+    }
+
+    .img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.8s ease;
+    }
+
+    .slider-counter {
+        position: absolute;
+        bottom: 6em;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 24px;
+        display: flex;
+        gap: 0.5em;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        z-index: 10;
+    }
+
+    .slider-counter > div {
+        flex: 1;
+    }
+
+    .slider-counter p {
+        line-height: 20px;
+    }
+
+    .counter {
+        position: relative;
+        top: 0px;
+        will-change: transform;
+    }
+
+    .slider-title {
+        position: absolute;
+        bottom: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 64px;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .slider-title-wrapper {
+        position: relative;
+        width: 100%;
+        top: 0px;
+        text-align: center;
+        will-change: transform;
+    }
+
+    .slider-title-wrapper p {
+        font-size: 50px;
+        line-height: 60px;
+    }
+
+    .slider-indicators {
+        position: absolute;
+        bottom: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 75%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .slider-indicators p {
+        position: relative;
+        font-size: 40px;
+        font-weight: 200;
+        will-change: transform;
+    }
+
+    .slider-preview-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 2em;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(5px);
+    }
+
+    .preview-nav {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 50%;
+        font-size: 16px;
+        line-height: 1;
+        min-width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s ease;
+    }
+
+    .preview-nav:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .slider-preview {
+        position: relative;
+        height: 80px;
+        flex: 1;
+        display: flex;
+        gap: 0.5em;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        padding: 10px 0;
+    }
+
+    .slider-preview::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .preview {
+        position: relative;
+        min-width: 100px;
+        height: 100%;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        transform-origin: center;
+        z-index: 1;
+    }
+
+    .preview.active {
+        z-index: 2;
+    }
+
+    .preview:hover {
+        transform: scale(1.5);
+        z-index: 3;
+    }
+
+    .preview::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        transition: 0.3s ease-in-out;
+    }
+
+    .preview.active::after {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .preview:hover::after {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 900px) {
+        .slider-indicators {
+            width: 90%;
+            bottom: 120px;
+        }
+
+        .slider-preview-container {
+            padding: 1em;
+        }
+
+        .slider-preview {
+            height: 60px;
+        }
+
+        .preview {
+            min-width: 80px;
+        }
+
+        .slider-counter {
+            bottom: 5em;
+        }
+
+        .slider-title {
+            bottom: 120px;
+        }
+
+        .slider-title-wrapper p {
+            font-size: 30px;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { CustomEase } from "gsap/CustomEase";
+    gsap.registerPlugin(CustomEase);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(CustomEase);
+        CustomEase.create(
+            "hop",
+            "M0,0 C0.071,0.505 0.192,0.726 0.318,0.852 0.45,0.984 0.504,1 1,1",
+        );
+
+        const sliderImages = document.querySelector(".slider-images");
+        const counter = document.querySelector(".counter");
+        const titles = document.querySelector(".slider-title-wrapper");
+        const indicators = document.querySelectorAll(".slider-indicators p");
+        const prevSlides = document.querySelectorAll(
+            ".slider-preview .preview",
+        );
+        const slidePreview = document.querySelector(".slider-preview");
+        const prevButton = document.querySelector(".preview-nav.prev");
+        const nextButton = document.querySelector(".preview-nav.next");
+
+        let currentImg = 1;
+        const totalSlides = 20;
+        let indicatorRotation = 0;
+
+        const slideTitles = [
+            "The Revival Ensemble",
+            "Above The Canvas",
+            "Harmony in Every Note",
+            "Redefining Imagination",
+            "From Earth to Expression",
+            "Digital Renaissance",
+            "Motion & Emotion",
+            "Shaping Tomorrow",
+            "Vivid Perspectives",
+            "Beyond Boundaries",
+            "Creative Horizons",
+            "Echoes of Innovation",
+            "Artistic Fluidity",
+            "Visual Symphony",
+            "Elements of Design",
+            "Parallel Dimensions",
+            "Crafted Visions",
+            "Reimagined Spaces",
+            "Infinite Expression",
+            "Converging Paths",
+        ];
+
+        updateSliderTitles();
+
+        function updateSliderTitles() {
+            let titlesHTML = "";
+            for (let i = 0; i < slideTitles.length; i++) {
+                titlesHTML += `<p>${slideTitles[i]}</p>`;
+            }
+            titles.innerHTML = titlesHTML;
+        }
+
+        function updateCounterAndTitlePosition() {
+            const counterY = -20 * (currentImg - 1);
+            const titleY = -60 * (currentImg - 1);
+
+            gsap.to(counter, {
+                y: counterY,
+                duration: 1,
+                ease: "hop",
+            });
+
+            gsap.to(titles, {
+                y: titleY,
+                duration: 1,
+                ease: "hop",
+            });
+        }
+
+        function updateActiveSlidePreview() {
+            prevSlides.forEach((prev) => prev.classList.remove("active"));
+            prevSlides[currentImg - 1].classList.add("active");
+
+            scrollPreviewToActive();
+        }
+
+        function scrollPreviewToActive() {
+            const activePreview = prevSlides[currentImg - 1];
+            const previewContainer = slidePreview;
+
+            const containerWidth = previewContainer.clientWidth;
+            const previewWidth = activePreview.offsetWidth;
+            const scrollLeft =
+                activePreview.offsetLeft -
+                containerWidth / 2 +
+                previewWidth / 2;
+
+            previewContainer.scrollTo({
+                left: Math.max(0, scrollLeft),
+                behavior: "smooth",
+            });
+        }
+
+        prevButton.addEventListener("click", () => {
+            slidePreview.scrollBy({
+                left: -slidePreview.clientWidth / 1.5,
+                behavior: "smooth",
+            });
+        });
+
+        nextButton.addEventListener("click", () => {
+            slidePreview.scrollBy({
+                left: slidePreview.clientWidth / 1.5,
+                behavior: "smooth",
+            });
+        });
+
+        prevSlides.forEach((preview) => {
+            preview.addEventListener("mouseenter", () => {
+                const previewRect = preview.getBoundingClientRect();
+                const containerRect = slidePreview.getBoundingClientRect();
+
+                if (previewRect.right > containerRect.right - 50) {
+                    slidePreview.scrollBy({
+                        left: 50,
+                        behavior: "smooth",
+                    });
+                } else if (previewRect.left < containerRect.left + 50) {
+                    slidePreview.scrollBy({
+                        left: -50,
+                        behavior: "smooth",
+                    });
+                }
+            });
+        });
+
+        function animateSlide(direction) {
+            const currentSlide =
+                document.querySelectorAll(".img")[
+                    document.querySelectorAll(".img").length - 1
+                ];
+
+            const slideImg = document.createElement("div");
+            slideImg.classList.add("img");
+
+            const slideImgElem = document.createElement("img");
+            slideImgElem.src = `./assets/video/img${currentImg}.jpg`;
+            gsap.set(slideImgElem, { x: direction === "left" ? -500 : 500 });
+
+            const slideVideoElem = document.createElement("video");
+            slideVideoElem.src = `./assets/video/video${currentImg}.mp4`;
+            // slideVideoElem.muted = true;
+            slideVideoElem.loop = true;
+            slideVideoElem.style.opacity = "0";
+
+            slideImg.appendChild(slideImgElem);
+            slideImg.appendChild(slideVideoElem);
+            sliderImages.appendChild(slideImg);
+
+            const oldVideos = document.querySelectorAll(".img video");
+            for (let i = 0; i < oldVideos.length - 1; i++) {
+                oldVideos[i].pause();
+            }
+
+            gsap.to(currentSlide.querySelector("img"), {
+                x: direction === "left" ? 500 : -500,
+                duration: 1.5,
+                ease: "hop",
+            });
+
+            gsap.fromTo(
+                slideImg,
+                {
+                    clipPath:
+                        direction === "left"
+                            ? "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)"
+                            : "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
+                },
+                {
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    duration: 1.5,
+                    ease: "hop",
+                    onComplete: function () {
+                        gsap.to(slideImgElem, {
+                            opacity: 0.3,
+                            duration: 0.8,
+                            ease: "power2.inOut",
+                        });
+
+                        gsap.to(slideVideoElem, {
+                            opacity: 1,
+                            duration: 0.8,
+                            ease: "power2.inOut",
+                            onStart: function () {
+                                slideVideoElem.play();
+                            },
+                        });
+                    },
+                },
+            );
+
+            gsap.to(slideImgElem, {
+                x: 0,
+                duration: 1.5,
+                ease: "hop",
+            });
+
+            cleanupSlides();
+
+            indicatorRotation += direction === "left" ? -90 : 90;
+            gsap.to(indicators, {
+                rotate: indicatorRotation,
+                duration: 1,
+                ease: "hop",
+            });
+        }
+
+        document.addEventListener("click", (event) => {
+            if (event.target.closest(".preview-nav")) {
+                return;
+            }
+
+            if (slidePreview.contains(event.target)) {
+                const clickedPrev = event.target.closest(".preview");
+
+                if (clickedPrev) {
+                    const clickedIndex =
+                        Array.from(prevSlides).indexOf(clickedPrev) + 1;
+
+                    if (clickedIndex !== currentImg) {
+                        if (clickedIndex < currentImg) {
+                            currentImg = clickedIndex;
+                            animateSlide("left");
+                        } else {
+                            currentImg = clickedIndex;
+                            animateSlide("right");
+                        }
+                        updateActiveSlidePreview();
+                        updateCounterAndTitlePosition();
+                    }
+                }
+                return;
+            }
+
+            const sliderWidth = document.querySelector(".slider").clientWidth;
+            const clickPosition = event.clientX;
+
+            if (clickPosition < sliderWidth / 2 && currentImg !== 1) {
+                currentImg--;
+                animateSlide("left");
+            } else if (
+                clickPosition > sliderWidth / 2 &&
+                currentImg !== totalSlides
+            ) {
+                currentImg++;
+                animateSlide("right");
+            }
+
+            updateActiveSlidePreview();
+            updateCounterAndTitlePosition();
+        });
+
+        function cleanupSlides() {
+            const imgElements = document.querySelectorAll(
+                ".slider-images .img",
+            );
+            if (imgElements.length > 2) {
+                imgElements[0].remove();
+            }
+        }
+
+        setTimeout(() => {
+            const firstVideo = document.querySelector(
+                ".slider-images .img video",
+            );
+            const firstImg = document.querySelector(".slider-images .img img");
+
+            gsap.to(firstImg, {
+                opacity: 0.3,
+                duration: 0.8,
+                ease: "power2.inOut",
+            });
+
+            gsap.to(firstVideo, {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.inOut",
+                onStart: function () {
+                    firstVideo.play();
+                },
+            });
+        }, 1000);
+    });
+</script>
+
