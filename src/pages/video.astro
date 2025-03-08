@@ -1,8 +1,8 @@
 ---
 // Astro组件前置内容
 // 在这里可以添加任何服务器端代码或导入
-import { ViewTransitions } from 'astro:transitions';
-import Nav from '../components/nav.astro';
+import { ViewTransitions } from "astro:transitions";
+import Nav from "../components/nav.astro";
 ---
 
 <!doctype html>
@@ -19,7 +19,7 @@ import Nav from '../components/nav.astro';
             <div class="slider-images">
                 <div class="img">
                     <img src="./assets/video/img1.jpg" alt="" />
-                    <video src="./assets/video/video1.mp4" loop></video>
+                    <video src="./assets/video/video1.mp4" muted loop></video>
                 </div>
             </div>
 
@@ -70,6 +70,24 @@ import Nav from '../components/nav.astro';
                     </div>
                 </div>
                 <button class="preview-nav next">&gt;</button>
+            </div>
+
+            <!-- 添加视频控制按钮 -->
+            <div class="video-controls">
+                <button id="muteButton" class="video-control-btn" title="音量控制">
+                    <div class="mute-icon">
+                        <img
+                            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzQxNDM3ODEyOTQ5IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjUgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE1ODAiIHdpZHRoPSIzMi4wMzEyNSIgaGVpZ2h0PSIzMiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik02NTIuNTY5NDIyIDk0LjQ3MjU4NmEyNS44Njg3OCAyNS44Njg3OCAwIDAgMSAxNy40MDk3ODctNi40OTE3ODUgMjYuMjYyMjIxIDI2LjI2MjIyMSAwIDAgMSAyNi4xNjM4NjEgMjYuMjYyMjIxVjUyOS4yMjU0Nmw3OC42ODgzMDMgNzguNjg4MzAzVjExNC4yNDMwMjJhMTA0Ljk1MDUyNCAxMDQuOTUwNTI0IDAgMCAwLTE3My45OTk1MS03OC42ODgzMDNMMzg4LjE3NjcyNSAyMjEuMjU5MTE0bDU1Ljc3MDMzNCA1NS43NzAzMzV6TTEwMTIuNDcwMDQ4IDk1Ni43OTgwMjVsLTk0NC4yNTk2MzUtOTQ0LjI1OTYzNC0xLjk2NzIwNy0xLjk2NzIwOGEzOS4zNDQxNTEgMzkuMzQ0MTUxIDAgMSAwLTUzLjcwNDc2NyA1Ny42MzkxODJsMTg5LjczNzE3IDE4OS42Mzg4MUExNTcuMzc2NjA2IDE1Ny4zNzY2MDYgMCAwIDAgOTIuODAwNTA4IDQwNy41NTM2NzF2MjE5LjE0NjkyNGExNTcuMzc2NjA2IDE1Ny4zNzY2MDYgMCAwIDAgMTU3LjM3NjYwNiAxNDguMTMwNzNIMzU1LjEyNzYzN2wyNDUuOTAwOTQ3IDIxNC45MTc0MjcgNi4xOTY3MDQgNS4xMTQ3NGExMDQuOTUwNTI0IDEwNC45NTA1MjQgMCAwIDAgMTY3LjgwMjgwNi04NC4wOTgxMjR2LTgwLjM2MDQyOWwxODEuOTY2NyAxODIuMDY1MDYxYTM5LjM0NDE1MSAzOS4zNDQxNTEgMCAwIDAgNTUuNjcxOTc0LTU1LjY3MTk3NXogbS0zMTYuMzI2OTc4LTQ2LjAzMjY1N3Y0LjQyNjIxN2EyNi41NTczMDIgMjYuNTU3MzAyIDAgMCAxLTYuMDk4MzQzIDEyLjg4NTIxIDI2LjE2Mzg2MSAyNi4xNjM4NjEgMCAwIDEtMzYuOTgzNTAzIDIuNDU5MDA5bC0yNDUuOTAwOTQ2LTIxNC45MTc0MjctNi4zOTM0MjUtNS4xMTQ3NGE3OC42ODgzMDMgNzguNjg4MzAzIDAgMCAwLTQ1LjQ0MjQ5NS0xNC4zNjA2MTVIMjQyLjcwMTcyNWE3OC42ODgzMDMgNzguNjg4MzAzIDAgMCAxLTcxLjIxMjkxNC03OC42ODgzMDN2LTIxNy4zNzY0MzZhNzguNjg4MzAzIDc4LjY4ODMwMyAwIDAgMSA3OC42ODgzMDMtNzEuMjEyOTE1aDIzLjExNDY4OWw0MjIuOTQ5NjI3IDQyMi45NDk2Mjh6IiBwLWlkPSIxNTgxIiBmaWxsPSIjZmZmZmZmIj48L3BhdGg+PC9zdmc+"
+                        />
+                    </div>
+                </button>
+                <button id="controlsButton" class="video-control-btn" title="进度条">
+                    <div class="controls-icon">
+                        <img
+                            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzQxNDM5MDUxMDE4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijc2MzQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik0yOTEuMzI4IDc0MS42MzJjLTkuNzI4IDAtMTcuOTItNy45MzYtMTcuOTItMTcuOTIgMC05LjcyOCA4LjE5Mi0xNy40MDggMTcuOTItMTcuNDA4aDI2Mi42NTZjMi44MTYtNy42OCA3LjE2OC0xNC4zMzYgMTIuNTQ0LTIwLjIyNCA5LjcyOC05LjcyOCAyMi43ODQtMTUuNjE2IDM3LjYzMi0xNS42MTYgMTQuNTkyIDAgMjguMTYgNS44ODggMzcuNjMyIDE1LjYxNiA1LjM3NiA1Ljg4OCA5Ljk4NCAxMi4yODggMTIuNTQ0IDIwLjIyNGg3Mi45NmM5LjcyOCAwIDE3LjY2NCA3LjY4IDE3LjY2NCAxNy40MDhzLTcuOTM2IDE3LjkyLTE3LjY2NCAxNy45MmgtNzIuOTZjLTIuNTYgNy40MjQtNy4xNjggMTQuMzM2LTEyLjU0NCAyMC4yMjQtOS43MjggOS43MjgtMjMuMDQgMTUuNjE2LTM3LjYzMiAxNS42MTYtMTQuODQ4IDAtMjguMTYtNS44ODgtMzcuNjMyLTE1LjYxNmwtMC43NjgtMS43OTJjLTUuMTItNS4xMi04LjcwNC0xMS41Mi0xMS43NzYtMTguNDMySDI5MS4zMjh6TTIyMS42OTYgMTc4LjE3Nmg1NzQuNzJjMjYuMzY4IDAgNTAuNjg4IDEwLjQ5NiA2OC4zNTIgMjcuOTA0djAuNTEyYzE3LjY2NCAxNy40MDggMjguNDE2IDQxLjIxNiAyOC40MTYgNjguMDk2djQ3My4zNDRjMCAyNi4zNjgtMTEuMDA4IDUwLjY4OC0yOC40MTYgNjguMDk2bC0yLjA0OCAxLjc5MmMtMTcuMTUyIDE2LjY0LTQwLjcwNCAyNi42MjQtNjYuMzA0IDI2LjYyNEgyMjEuNjk2Yy0yNi4zNjggMC01MC4xNzYtMTAuNzUyLTY3Ljg0LTI4LjE2bC0wLjI1Ni0wLjUxMmMtMTcuNDA4LTE3LjQwOC0yOC40MTYtNDEuNDcyLTI4LjQxNi02Ny41ODRWMjc0LjQzMmMwLTI2Ljg4IDExLjAwOC01MC42ODggMjguNDE2LTY4LjYwOGwxLjc5Mi0xLjUzNmMxNy40MDgtMTYuMTI4IDQxLjIxNi0yNi4xMTIgNjYuMzA0LTI2LjExMnogbTU3NC45NzYgNTguODhIMjIxLjY5NmMtOS43MjggMC0xOC40MzIgMy41ODQtMjUuMDg4IDkuNzI4bC0xLjI4IDEuMDI0Yy02LjY1NiA3LjE2OC0xMS4wMDggMTYuNjQtMTEuMDA4IDI2Ljg4djQ3My4zNDRjMCA5Ljk4NCA0LjA5NiAxOS40NTYgMTAuNDk2IDI1Ljg1NmwwLjUxMiAwLjI1NnYwLjI1NmM2LjkxMiA2LjQgMTYuMzg0IDEwLjc1MiAyNi4zNjggMTAuNzUyaDU3NC43MmM5LjcyOCAwIDE4Ljk0NC0zLjU4NCAyNS42LTkuNzI4bDEuMjgtMS4yOGM2LjY1Ni02LjQgMTEuMDA4LTE2LjEyOCAxMS4wMDgtMjYuMTEydi00NzMuNmMwLTkuOTg0LTQuMDk2LTE5LjQ1Ni0xMS4wMDgtMjUuODU2di0wLjc2OGMtNi45MTItNi45MTItMTYuMTI4LTEwLjc1Mi0yNi42MjQtMTAuNzUyeiBtLTM2Ny42MTYgMTE3LjUwNGwxOTAuOTc2IDExMC4wOGMxNC4wOCA3LjY4IDE4Ljk0NCAyNS44NTYgMTAuNzUyIDQwLjE5Mi0yLjU2IDQuMDk2LTYuNCA4LjE5Mi0xMC43NTIgMTAuNDk2bC05NiA1NS44MDgtOTUuNzQ0IDU1LjI5NmMtMTQuMzM2IDcuNjgtMzIuMjU2IDIuODE2LTQwLjE5Mi0xMS4wMDgtMi44MTYtNC42MDgtNC4wOTYtOS43MjgtNC4wOTYtMTQuNTkyaC0wLjI1NmwwLjI1Ni0yMjEuNjk2YzAtMTYuMzg0IDEzLjMxMi0yOS40NCAyOS40NC0yOS40NCA1LjYzMiAwLjI1NiAxMS4wMDggMS41MzYgMTUuNjE2IDQuODY0eiBtMTMuODI0IDc1Ljc3NnYxMTkuMDRjMzQuMzA0LTE5LjcxMiA2OC42MDgtMzkuNDI0IDEwMy40MjQtNTkuMTM2TDQ0Mi44OCA0MzAuMzM2eiBtMTQzLjg3MiAyOTMuMTJ2MS4yOGMwIDQuMzUyIDEuNzkyIDguNDQ4IDQuMzUyIDExLjI2NHYwLjUxMmwwLjc2OCAwLjUxMmMzLjA3MiAzLjA3MiA3LjQyNCA1LjEyIDEyLjU0NCA1LjEyIDUuMTIgMCA5LjcyOC0xLjc5MiAxMi41NDQtNS4xMiAzLjA3Mi0zLjA3MiA1LjEyLTcuNjggNS4zNzYtMTIuMjg4di0xLjI4Yy0wLjUxMi00LjYwOC0yLjMwNC04Ljk2LTUuMzc2LTEyLjAzMi0yLjgxNi0zLjMyOC03LjQyNC01LjEyLTEyLjU0NC01LjEyLTUuMTIgMC05LjQ3MiAxLjc5Mi0xMi41NDQgNS4xMi0zLjA3MiAyLjgxNi01LjEyIDcuNDI0LTUuMTIgMTIuMDMyeiIgZmlsbD0iIzUxNTE1MSIgcC1pZD0iNzYzNSI+PC9wYXRoPjwvc3ZnPg=="
+                        />
+                    </div>
+                </button>
             </div>
         </div>
     </body>
@@ -125,6 +143,16 @@ import Nav from '../components/nav.astro';
         opacity: 1;
     }
 
+    .mute-icon img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .controls-icon img {
+        width: 24px;
+        height: 24px;
+    }
+
     .slider {
         position: relative;
         width: 100vw;
@@ -163,6 +191,7 @@ import Nav from '../components/nav.astro';
     }
 
     .slider-counter {
+        opacity: 0;
         position: absolute;
         bottom: 6em;
         left: 50%;
@@ -230,15 +259,15 @@ import Nav from '../components/nav.astro';
 
     .slider-preview-container {
         position: absolute;
-        bottom: 0;
+        bottom: 75px;
         left: 0;
         width: 100%;
-        padding: 2em;
+        padding: 0 20px;
         display: flex;
         align-items: center;
         gap: 1em;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(5px);
+        /* background: rgba(0, 0, 0, 0.3); */
+        /* backdrop-filter: blur(5px); */
     }
 
     .preview-nav {
@@ -320,6 +349,34 @@ import Nav from '../components/nav.astro';
         background-color: rgba(0, 0, 0, 0.2);
     }
 
+    .video-controls {
+        position: absolute;
+        bottom: 250px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    .video-control-btn {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s ease;
+    }
+
+    .video-control-btn:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
     @media (max-width: 900px) {
         .slider-indicators {
             width: 90%;
@@ -349,6 +406,16 @@ import Nav from '../components/nav.astro';
         .slider-title-wrapper p {
             font-size: 30px;
         }
+
+        .video-controls {
+            bottom: 80px;
+            right: 10px;
+        }
+
+        .video-control-btn {
+            width: 36px;
+            height: 36px;
+        }
     }
 </style>
 
@@ -357,6 +424,18 @@ import Nav from '../components/nav.astro';
     import { CustomEase } from "gsap/CustomEase";
     gsap.registerPlugin(CustomEase);
 
+    let isMuted = true;
+    let showControls = false;
+
+    const muteIcon =
+        "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzQxNDM3ODEyOTQ5IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjUgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE1ODAiIHdpZHRoPSIzMi4wMzEyNSIgaGVpZ2h0PSIzMiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik02NTIuNTY5NDIyIDk0LjQ3MjU4NmEyNS44Njg3OCAyNS44Njg3OCAwIDAgMSAxNy40MDk3ODctNi40OTE3ODUgMjYuMjYyMjIxIDI2LjI2MjIyMSAwIDAgMSAyNi4xNjM4NjEgMjYuMjYyMjIxVjUyOS4yMjU0Nmw3OC42ODgzMDMgNzguNjg4MzAzVjExNC4yNDMwMjJhMTA0Ljk1MDUyNCAxMDQuOTUwNTI0IDAgMCAwLTE3My45OTk1MS03OC42ODgzMDNMMzg4LjE3NjcyNSAyMjEuMjU5MTE0bDU1Ljc3MDMzNCA1NS43NzAzMzV6TTEwMTIuNDcwMDQ4IDk1Ni43OTgwMjVsLTk0NC4yNTk2MzUtOTQ0LjI1OTYzNC0xLjk2NzIwNy0xLjk2NzIwOGEzOS4zNDQxNTEgMzkuMzQ0MTUxIDAgMSAwLTUzLjcwNDc2NyA1Ny42MzkxODJsMTg5LjczNzE3IDE4OS42Mzg4MUExNTcuMzc2NjA2IDE1Ny4zNzY2MDYgMCAwIDAgOTIuODAwNTA4IDQwNy41NTM2NzF2MjE5LjE0NjkyNGExNTcuMzc2NjA2IDE1Ny4zNzY2MDYgMCAwIDAgMTU3LjM3NjYwNiAxNDguMTMwNzNIMzU1LjEyNzYzN2wyNDUuOTAwOTQ3IDIxNC45MTc0MjcgNi4xOTY3MDQgNS4xMTQ3NGExMDQuOTUwNTI0IDEwNC45NTA1MjQgMCAwIDAgMTY3LjgwMjgwNi04NC4wOTgxMjR2LTgwLjM2MDQyOWwxODEuOTY2NyAxODIuMDY1MDYxYTM5LjM0NDE1MSAzOS4zNDQxNTEgMCAwIDAgNTUuNjcxOTc0LTU1LjY3MTk3NXogbS0zMTYuMzI2OTc4LTQ2LjAzMjY1N3Y0LjQyNjIxN2EyNi41NTczMDIgMjYuNTU3MzAyIDAgMCAxLTYuMDk4MzQzIDEyLjg4NTIxIDI2LjE2Mzg2MSAyNi4xNjM4NjEgMCAwIDEtMzYuOTgzNTAzIDIuNDU5MDA5bC0yNDUuOTAwOTQ2LTIxNC45MTc0MjctNi4zOTM0MjUtNS4xMTQ3NGE3OC42ODgzMDMgNzguNjg4MzAzIDAgMCAwLTQ1LjQ0MjQ5NS0xNC4zNjA2MTVIMjQyLjcwMTcyNWE3OC42ODgzMDMgNzguNjg4MzAzIDAgMCAxLTcxLjIxMjkxNC03OC42ODgzMDN2LTIxNy4zNzY0MzZhNzguNjg4MzAzIDc4LjY4ODMwMyAwIDAgMSA3OC42ODgzMDMtNzEuMjEyOTE1aDIzLjExNDY4OWw0MjIuOTQ5NjI3IDQyMi45NDk2Mjh6IiBwLWlkPSIxNTgxIiBmaWxsPSIjZmZmZmZmIj48L3BhdGg+PC9zdmc+";
+    const voiceIcon =
+        "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzQxNDM4MDQwMjE3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE5NTkiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik04NDQuODMwMTEyIDI3My41MDY4MzlhMzUuNzEzOTUxIDM1LjcxMzk1MSAwIDAgMC00OS4zMTkyNjYgMjIuODA4OTA5IDQ1LjMxNzcwMiA0NS4zMTc3MDIgMCAwIDAgMTQuMzA1NTg5IDQ3LjExODQwNiA1MS4wMTk5MyA1MS4wMTk5MyAwIDAgMCAxMC4wMDM5MDcgNy4zMDI4NTMgMTczLjk2Nzk1NiAxNzMuOTY3OTU2IDAgMCAxIDE1LjYwNjA5NiAxMC4wMDM5MDcgMTg2Ljc3Mjk1OCAxODYuNzcyOTU4IDAgMCAxLTE1LjgwNjE3NCAzMTIuNTIyMDc5IDUxLjAxOTkzIDUxLjAxOTkzIDAgMCAwLTEwLjAwMzkwOCA3LjMwMjg1MyA0NS40MTc3NDEgNDUuNDE3NzQxIDAgMCAwLTE0LjMwNTU4OCA0Ny4xMTg0MDZBMzUuODEzOTkgMzUuODEzOTkgMCAwIDAgODQ0LjgzMDExMiA3NTAuMjkzMDgzYTI2Ni44MDQyMiAyNjYuODA0MjIgMCAwIDAgMC00NzcuMDg2MzYyek01NDguNDE0MzI0IDI2LjYxMDM5NWwtMjUwLjA5NzY5NCAyMTguNjg1NDI0SDE4Mi40NzEzNzhBMTYwLjA2MjUyNCAxNjAuMDYyNTI0IDAgMCAwIDMxLjgxMjUyNyA0MDUuMzU4MzQzdjIyMi43ODcwMjZhMTYwLjA2MjUyNCAxNjAuMDYyNTI0IDAgMCAwIDE2MC4wNjI1MjQgMTUwLjY1ODg1MWgxMDYuNzQxNjk2bDI1MC4wOTc2OTUgMjE4LjU4NTM4NSA2LjQwMjUwMSA1LjIwMjAzMmExMDYuNzQxNjk2IDEwNi43NDE2OTYgMCAwIDAgMTcwLjA2NjQzMi04NS41MzM0MTFWOTguNTM4NDkyYTEwNi44NDE3MzUgMTA2Ljg0MTczNSAwIDAgMC0xNzYuNzY5MDUxLTcxLjkyODA5N3ogbTk2LjkzNzg2NyA4OTAuMzQ3NzkyYTI2LjcxMDQzNCAyNi43MTA0MzQgMCAwIDEtNDQuMjE3MjczIDIwLjAwNzgxNWwtMjUwLjA5NzY5NC0yMTguNTg1Mzg1YTgwLjAzMTI2MiA4MC4wMzEyNjIgMCAwIDAtNTIuNzIwNTk0LTIwLjAwNzgxNUgxOTEuODc1MDUxYTgwLjAzMTI2MiA4MC4wMzEyNjIgMCAwIDEtODAuMDMxMjYyLTgwLjAzMTI2MlY0MDUuMzU4MzQzYTgwLjAzMTI2MiA4MC4wMzEyNjIgMCAwIDEgODAuMDMxMjYyLTgwLjAzMTI2MmgxMDYuNzQxNjk2YTgwLjAzMTI2MiA4MC4wMzEyNjIgMCAwIDAgNTIuNzIwNTk0LTIwLjAwNzgxNmxzNTAuMDk3Njk1LTIxOC42ODU0MjRhMjYuNjEwMzk1IDI2LjYxMDM5NSAwIDAgMSA0NC4yMTcyNzIgMjAuMDA3ODE2eiIgcC1pZD0iMTk2MCIgZmlsbD0iI2ZmZmZmZiI+PC9wYXRoPjwvc3ZnPg==";
+
+    const controlsActiveIcon =
+        "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzQxNDM4ODIxNjkyIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjczNTYiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik0yOTEuMzI4IDc0MS42MzJjLTkuNzI4IDAtMTcuOTItNy45MzYtMTcuOTItMTcuOTIgMC05LjcyOCA4LjE5Mi0xNy40MDggMTcuOTItMTcuNDA4aDI2Mi42NTZjMi44MTYtNy42OCA3LjE2OC0xNC4zMzYgMTIuNTQ0LTIwLjIyNCA5LjcyOC05LjcyOCAyMi43ODQtMTUuNjE2IDM3LjYzMi0xNS42MTYgMTQuNTkyIDAgMjguMTYgNS44ODggMzcuNjMyIDE1LjYxNiA1LjM3NiA1Ljg4OCA5Ljk4NCAxMi4yODggMTIuNTQ0IDIwLjIyNGg3Mi45NmM5LjcyOCAwIDE3LjY2NCA3LjY4IDE3LjY2NCAxNy40MDhzLTcuOTM2IDE3LjkyLTE3LjY2NCAxNy45MmgtNzIuOTZjLTIuNTYgNy40MjQtNy4xNjggMTQuMzM2LTEyLjU0NCAyMC4yMjQtOS43MjggOS43MjgtMjMuMDQgMTUuNjE2LTM3LjYzMiAxNS42MTYtMTQuODQ4IDAtMjguMTYtNS44ODgtMzcuNjMyLTE1LjYxNmwtMC43NjgtMS43OTJjLTUuMTItNS4xMi04LjcwNC0xMS41Mi0xMS43NzYtMTguNDMySDI5MS4zMjh6TTIyMS42OTYgMTc4LjE3Nmg1NzQuNzJjMjYuMzY4IDAgNTAuNjg4IDEwLjQ5NiA2OC4zNTIgMjcuOTA0djAuNTEyYzE3LjY2NCAxNy40MDggMjguNDE2IDQxLjIxNiAyOC40MTYgNjguMDk2djQ3My4zNDRjMCAyNi4zNjgtMTEuMDA4IDUwLjY4OC0yOC40MTYgNjguMDk2bC0yLjA0OCAxLjc5MmMtMTcuMTUyIDE2LjY0LTQwLjcwNCAyNi42MjQtNjYuMzA0IDI2LjYyNEgyMjEuNjk2Yy0yNi4zNjggMC01MC4xNzYtMTAuNzUyLTY3Ljg0LTI4LjE2bC0wLjI1Ni0wLjUxMmMtMTcuNDA4LTE3LjQwOC0yOC40MTYtNDEuNDcyLTI4LjQxNi02Ny41ODRWMjc0LjQzMmMwLTI2Ljg4IDExLjAwOC01MC42ODggMjguNDE2LTY4LjYwOGwxLjc5Mi0xLjUzNmMxNy40MDgtMTYuMTI4IDQxLjIxNi0yNi4xMTIgNjYuMzA0LTI2LjExMnogbTU3NC45NzYgNTguODhIMjIxLjY5NmMtOS43MjggMC0xOC40MzIgMy41ODQtMjUuMDg4IDkuNzI4bC0xLjI4IDEuMDI0Yy02LjY1NiA3LjE2OC0xMS4wMDggMTYuNjQtMTEuMDA4IDI2Ljg4djQ3My4zNDRjMCA5Ljk4NCA0LjA5NiAxOS40NTYgMTAuNDk2IDI1Ljg1NmwwLjUxMiAwLjI1NnYwLjI1NmM2LjkxMiA2LjQgMTYuMzg0IDEwLjc1MiAyNi4zNjggMTAuNzUyaDU3NC43MmM5LjcyOCAwIDE4Ljk0NC0zLjU4NCAyNS42LTkuNzI4bDEuMjgtMS4yOGM2LjY1Ni02LjQgMTEuMDA4LTE2LjEyOCAxMS4wMDgtMjYuMTEydi00NzMuNmMwLTkuOTg0LTQuMDk2LTE5LjQ1Ni0xMS4wMDgtMjUuODU2di0wLjc2OGMtNi45MTItNi45MTItMTYuMTI4LTEwLjc1Mi0yNi42MjQtMTAuNzUyeiBtLTM2Ny42MTYgMTE3LjUwNGwxOTAuOTc2IDExMC4wOGMxNC4wOCA3LjY4IDE4Ljk0NCAyNS44NTYgMTAuNzUyIDQwLjE5Mi0yLjU2IDQuMDk2LTYuNCA4LjE5Mi0xMC43NTIgMTAuNDk2bC05NiA1NS44MDgtOTUuNzQ0IDU1LjI5NmMtMTQuMzM2IDcuNjgtMzIuMjU2IDIuODE2LTQwLjE5Mi0xMS4wMDgtMi44MTYtNC42MDgtNC4wOTYtOS43MjgtNC4wOTYtMTQuNTkyaC0wLjI1NmwwLjI1Ni0yMjEuNjk2YzAtMTYuMzg0IDEzLjMxMi0yOS40NCAyOS40NC0yOS40NCA1LjYzMiAwLjI1NiAxMS4wMDggMS41MzYgMTUuNjE2IDQuODY0eiBtMTMuODI0IDc1Ljc3NnYxMTkuMDRjMzQuMzA0LTE5LjcxMiA2OC42MDgtMzkuNDI0IDEwMy40MjQtNTkuMTM2TDQ0Mi44OCA0MzAuMzM2eiBtMTQzLjg3MiAyOTMuMTJ2MS4yOGMwIDQuMzUyIDEuNzkyIDguNDQ4IDQuMzUyIDExLjI2NHYwLjUxMmwwLjc2OCAwLjUxMmMzLjA3MiAzLjA3MiA3LjQyNCA1LjEyIDEyLjU0NCA1LjEyIDUuMTIgMCA5LjcyOC0xLjc5MiAxMi41NDQtNS4xMiAzLjA3Mi0zLjA3MiA1LjEyLTcuNjggNS4zNzYtMTIuMjg4di0xLjI4Yy0wLjUxMi00LjYwOC0yLjMwNC04Ljk2LTUuMzc2LTEyLjAzMi0yLjgxNi0zLjMyOC03LjQyNC01LjEyLTEyLjU0NC01LjEyLTUuMTIgMC05LjQ3MiAxLjc5Mi0xMi41NDQgNS4xMi0zLjA3MiAyLjgxNi01LjEyIDcuNDI0LTUuMTIgMTIuMDMyeiIgZmlsbD0iI2ZmZmZmZiIgcC1pZD0iNzM1NyI+PC9wYXRoPjwvc3ZnPg==";
+    const controlsIcon =
+        "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzQxNDM5MDUxMDE4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijc2MzQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik0yOTEuMzI4IDc0MS42MzJjLTkuNzI4IDAtMTcuOTItNy45MzYtMTcuOTItMTcuOTIgMC05LjcyOCA4LjE5Mi0xNy40MDggMTcuOTItMTcuNDA4aDI2Mi42NTZjMi44MTYtNy42OCA3LjE2OC0xNC4zMzYgMTIuNTQ0LTIwLjIyNCA5LjcyOC05LjcyOCAyMi43ODQtMTUuNjE2IDM3LjYzMi0xNS42MTYgMTQuNTkyIDAgMjguMTYgNS44ODggMzcuNjMyIDE1LjYxNiA1LjM3NiA1Ljg4OCA5Ljk4NCAxMi4yODggMTIuNTQ0IDIwLjIyNGg3Mi45NmM5LjcyOCAwIDE3LjY2NCA3LjY4IDE3LjY2NCAxNy40MDhzLTcuOTM2IDE3LjkyLTE3LjY2NCAxNy45MmgtNzIuOTZjLTIuNTYgNy40MjQtNy4xNjggMTQuMzM2LTEyLjU0NCAyMC4yMjQtOS43MjggOS43MjgtMjMuMDQgMTUuNjE2LTM3LjYzMiAxNS42MTYtMTQuODQ4IDAtMjguMTYtNS44ODgtMzcuNjMyLTE1LjYxNmwtMC43NjgtMS43OTJjLTUuMTItNS4xMi04LjcwNC0xMS41Mi0xMS43NzYtMTguNDMySDI5MS4zMjh6TTIyMS42OTYgMTc4LjE3Nmg1NzQuNzJjMjYuMzY4IDAgNTAuNjg4IDEwLjQ5NiA2OC4zNTIgMjcuOTA0djAuNTEyYzE3LjY2NCAxNy40MDggMjguNDE2IDQxLjIxNiAyOC40MTYgNjguMDk2djQ3My4zNDRjMCAyNi4zNjgtMTEuMDA4IDUwLjY4OC0yOC40MTYgNjguMDk2bC0yLjA0OCAxLjc5MmMtMTcuMTUyIDE2LjY0LTQwLjcwNCAyNi42MjQtNjYuMzA0IDI2LjYyNEgyMjEuNjk2Yy0yNi4zNjggMC01MC4xNzYtMTAuNzUyLTY3Ljg0LTI4LjE2bC0wLjI1Ni0wLjUxMmMtMTcuNDA4LTE3LjQwOC0yOC40MTYtNDEuNDcyLTI4LjQxNi02Ny41ODRWMjc0LjQzMmMwLTI2Ljg4IDExLjAwOC01MC42ODggMjguNDE2LTY4LjYwOGwxLjc5Mi0xLjUzNmMxNy40MDgtMTYuMTI4IDQxLjIxNi0yNi4xMTIgNjYuMzA0LTI2LjExMnogbTU3NC45NzYgNTguODhIMjIxLjY5NmMtOS43MjggMC0xOC40MzIgMy41ODQtMjUuMDg4IDkuNzI4bC0xLjI4IDEuMDI0Yy02LjY1NiA3LjE2OC0xMS4wMDggMTYuNjQtMTEuMDA4IDI2Ljg4djQ3My4zNDRjMCA5Ljk4NCA0LjA5NiAxOS40NTYgMTAuNDk2IDI1Ljg1NmwwLjUxMiAwLjI1NnYwLjI1NmM2LjkxMiA2LjQgMTYuMzg0IDEwLjc1MiAyNi4zNjggMTAuNzUyaDU3NC43MmM5LjcyOCAwIDE4Ljk0NC0zLjU4NCAyNS42LTkuNzI4bDEuMjgtMS4yOGM2LjY1Ni02LjQgMTEuMDA4LTE2LjEyOCAxMS4wMDgtMjYuMTEydi00NzMuNmMwLTkuOTg0LTQuMDk2LTE5LjQ1Ni0xMS4wMDgtMjUuODU2di0wLjc2OGMtNi45MTItNi45MTItMTYuMTI4LTEwLjc1Mi0yNi42MjQtMTAuNzUyeiBtLTM2Ny42MTYgMTE3LjUwNGwxOTAuOTc2IDExMC4wOGMxNC4wOCA3LjY4IDE4Ljk0NCAyNS44NTYgMTAuNzUyIDQwLjE5Mi0yLjU2IDQuMDk2LTYuNCA4LjE5Mi0xMC43NTIgMTAuNDk2bC05NiA1NS44MDgtOTUuNzQ0IDU1LjI5NmMtMTQuMzM2IDcuNjgtMzIuMjU2IDIuODE2LTQwLjE5Mi0xMS4wMDgtMi44MTYtNC42MDgtNC4wOTYtOS43MjgtNC4wOTYtMTQuNTkyaC0wLjI1NmwwLjI1Ni0yMjEuNjk2YzAtMTYuMzg0IDEzLjMxMi0yOS40NCAyOS40NC0yOS40NCA1LjYzMiAwLjI1NiAxMS4wMDggMS41MzYgMTUuNjE2IDQuODY0eiBtMTMuODI0IDc1Ljc3NnYxMTkuMDRjMzQuMzA0LTE5LjcxMiA2OC42MDgtMzkuNDI0IDEwMy40MjQtNTkuMTM2TDQ0Mi44OCA0MzAuMzM2eiBtMTQzLjg3MiAyOTMuMTJ2MS4yOGMwIDQuMzUyIDEuNzkyIDguNDQ4IDQuMzUyIDExLjI2NHYwLjUxMmwwLjc2OCAwLjUxMmMzLjA3MiAzLjA3MiA3LjQyNCA1LjEyIDEyLjU0NCA1LjEyIDUuMTIgMCA5LjcyOC0xLjc5MiAxMi41NDQtNS4xMiAzLjA3Mi0zLjA3MiA1LjEyLTcuNjggNS4zNzYtMTIuMjg4di0xLjI4Yy0wLjUxMi00LjYwOC0yLjMwNC04Ljk2LTUuMzc2LTEyLjAzMi0yLjgxNi0zLjMyOC03LjQyNC01LjEyLTEyLjU0NC01LjEyLTUuMTIgMC05LjQ3MiAxLjc5Mi0xMi41NDQgNS4xMi0zLjA3MiAyLjgxNi01LjEyIDcuNDI0LTUuMTIgMTIuMDMyeiIgZmlsbD0iIzUxNTE1MSIgcC1pZD0iNzYzNSI+PC9wYXRoPjwvc3ZnPg==";
     document.addEventListener("astro:page-load", () => {
         gsap.registerPlugin(CustomEase);
         CustomEase.create(
@@ -501,7 +580,8 @@ import Nav from '../components/nav.astro';
 
             const slideVideoElem = document.createElement("video");
             slideVideoElem.src = `./assets/video/video${currentImg}.mp4`;
-            // slideVideoElem.muted = true;
+            slideVideoElem.muted = isMuted;
+            slideVideoElem.controls = showControls;
             slideVideoElem.loop = true;
             slideVideoElem.style.opacity = "0";
 
@@ -509,10 +589,8 @@ import Nav from '../components/nav.astro';
             slideImg.appendChild(slideVideoElem);
             sliderImages.appendChild(slideImg);
 
-            const oldVideos = document.querySelectorAll(".img video");
-            for (let i = 0; i < oldVideos.length - 1; i++) {
-                oldVideos[i].pause();
-            }
+            // 暂停所有视频
+            pauseAllVideos();
 
             gsap.to(currentSlide.querySelector("img"), {
                 x: direction === "left" ? 500 : -500,
@@ -564,6 +642,14 @@ import Nav from '../components/nav.astro';
                 rotate: indicatorRotation,
                 duration: 1,
                 ease: "hop",
+            });
+        }
+
+        // 添加暂停所有视频的辅助函数
+        function pauseAllVideos() {
+            const allVideos = document.querySelectorAll(".img video");
+            allVideos.forEach((video) => {
+                video.pause();
             });
         }
 
@@ -621,7 +707,67 @@ import Nav from '../components/nav.astro';
             }
         }
 
+        // 视频控制功能
+        const muteButton = document.getElementById("muteButton");
+        const controlsButton = document.getElementById("controlsButton");
+        // 静音控制
+        muteButton.addEventListener("click", (e) => {
+            e.stopPropagation(); // 阻止事件冒泡触发滑动
+            isMuted = !isMuted;
+
+            // 更新静音图标
+            muteButton.querySelector(".mute-icon img").src = isMuted
+                ? muteIcon
+                : voiceIcon;
+
+            // 应用到所有视频
+            const videos = document.querySelectorAll(".img video");
+            videos.forEach((video) => {
+                video.muted = isMuted;
+            });
+        });
+
+        // 视频控制栏
+        controlsButton.addEventListener("click", (e) => {
+            e.stopPropagation(); // 阻止事件冒泡触发滑动
+            showControls = !showControls;
+
+            // 更新控制栏图标
+
+            controlsButton.querySelector(".controls-icon img").src =
+                showControls ? controlsActiveIcon : controlsIcon;
+
+            // 应用到所有视频
+            const videos = document.querySelectorAll(".img video");
+            videos.forEach((video) => {
+                video.controls = showControls;
+            });
+        });
+
+        // 初始化视频静音状态（默认未静音）
+        const initialVideos = document.querySelectorAll(".img video");
+        initialVideos.forEach((video) => {
+            video.muted = isMuted;
+            video.controls = showControls;
+        });
+
+        // 在创建新视频元素时应用当前静音和控制栏状态
+        const originalCreateElement = document.createElement;
+        document.createElement = function (tagName) {
+            const element = originalCreateElement.call(document, tagName);
+
+            if (tagName.toLowerCase() === "video") {
+                element.muted = isMuted;
+                element.controls = showControls;
+            }
+
+            return element;
+        };
+
         setTimeout(() => {
+            // 暂停所有视频，确保只有第一个播放
+            pauseAllVideos();
+
             const firstVideo = document.querySelector(
                 ".slider-images .img video",
             );
@@ -644,4 +790,3 @@ import Nav from '../components/nav.astro';
         }, 1000);
     });
 </script>
-
