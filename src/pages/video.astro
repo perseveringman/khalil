@@ -1,6 +1,8 @@
 ---
 // Astro组件前置内容
 // 在这里可以添加任何服务器端代码或导入
+import { ViewTransitions } from 'astro:transitions';
+import Nav from '../components/nav.astro';
 ---
 
 <!doctype html>
@@ -9,8 +11,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Camille Mormal Slider | Codegrid</title>
+        <ViewTransitions />
     </head>
     <body>
+        <Nav />
         <div class="slider">
             <div class="slider-images">
                 <div class="img">
@@ -353,7 +357,7 @@
     import { CustomEase } from "gsap/CustomEase";
     gsap.registerPlugin(CustomEase);
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         gsap.registerPlugin(CustomEase);
         CustomEase.create(
             "hop",

@@ -1,6 +1,8 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
+import { ViewTransitions } from 'astro:transitions';
+import Nav from '../components/nav.astro';
 ---
 
 <!doctype html>
@@ -9,6 +11,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Gregory Lalle Awwwards Rebuild | Codegrid</title>
+        <ViewTransitions />
         <style is:global>
             * {
                 margin: 0;
@@ -30,12 +33,13 @@
                 object-fit: cover;
             }
 
-            p {
+            p,a {
                 color: #fff;
                 font-family: "Akkurat Mono";
-                font-size: 11px;
+                font-size: 12px;
                 font-weight: 300;
                 text-transform: uppercase;
+                text-decoration: none;
             }
 
             .hero {
@@ -104,16 +108,17 @@
                 color: #fff;
                 display: flex;
                 gap: 1.5em;
-                clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+                /* clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); */
                 overflow: hidden;
                 z-index: 2;
-                pointer-events: none;
+                /* pointer-events: none; */
             }
 
             .menu-nav {
                 position: fixed;
                 top: 0;
                 left: 0;
+                z-index: 2;
                 padding: 2em;
                 width: 100%;
                 display: flex;
@@ -124,6 +129,7 @@
                 position: relative;
                 flex: 3;
                 overflow: hidden;
+                opacity: 0;
             }
 
             .menu-items {
@@ -134,7 +140,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                z-index: -1;
+                z-index: 1;
             }
 
             .menu-img img {
@@ -166,34 +172,52 @@
                 position: relative;
                 cursor: pointer;
                 overflow: hidden;
+                transform: scale(2);
             }
 
-            .menu-logo img {
+            .menu-logo div {
                 position: relative;
                 transition: opacity 0.4s ease;
             }
-            
-            .menu-logo .logo-hover {
+
+            .menu-emoji {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                z-index: 2;
+            }
+
+            .menu-links .logo-hover {
                 position: absolute;
                 top: 0;
                 left: 0;
                 opacity: 0;
-                transition: opacity 0.4s ease;
+                transition: opacity 1.25s ease;
             }
-            
-            .menu-logo:hover .logo-default {
+
+            .menu-links .logo-default {
+                opacity: 1;
+                transition: opacity 1.25s ease;
+            }
+
+            .menu-links {
+                margin-top: 60px;
+            }
+
+            /* .menu-links:hover .logo-default {
                 opacity: 0;
             }
-            
-            .menu-logo:hover .logo-hover {
+
+            .menu-links:hover .logo-hover {
                 opacity: 1;
-            }
+            } */
 
             .menu-link p {
                 position: relative;
                 font-family: "Saans TRIAL";
                 font-size: 36px;
                 font-weight: 700;
+                opacity: 0;
             }
 
             .menu-link a {
@@ -227,9 +251,10 @@
         </style>
     </head>
     <body>
+        <Nav />
         <div class="container">
             <div class="menu">
-                <div class="menu-nav"><p class="menu-close">Close</p></div>
+                <!-- <div class="menu-nav"><p class="menu-close"> <a href="/album">Close</a></p></div> -->
 
                 <div class="menu-col menu-img">
                     <img id="img-1" src="./assets/about/img1.jpg" alt="" />
@@ -239,23 +264,24 @@
                 </div>
 
                 <div class="menu-col menu-items">
-                    <div class="menu-logo">
-                        <img class="logo-default" src="./assets/logo.png" alt="戴墨镜的人" />
-                        <img class="logo-hover" src="./assets/logo-hover.png" alt="摘下墨镜眼眶湿润的人" />
-                    </div>
-
                     <div class="menu-links">
                         <div class="menu-link">
-                            <p><a href="#">谨以此网站</a></p>
+                            <p>谨以此网站</p>
                         </div>
                         <div class="menu-link">
-                            <p><a href="#">纪念 Khalil</a></p>
+                            <p>纪念 Khalil</p>
                         </div>
                         <div class="menu-link">
-                            <p><a href="#">晚安，</a></p>
+                            <p>晚安，</p>
                         </div>
                         <div class="menu-link">
-                            <p><a href="#">愿世界大同</a></p>
+                            <p>
+                                愿世界大同
+                                <span class="menu-emoji">
+                                    <span class="logo-default">😎</span>
+                                    <span class="logo-hover">😭</span>
+                                </span>
+                            </p>
                         </div>
                     </div>
 
@@ -308,22 +334,24 @@
         <script>
             // 导入GSAP和Lenis库
             import { gsap } from "gsap";
-            document.addEventListener("DOMContentLoaded", function () {
+            
+            // 使用Astro特定的页面加载事件替代DOMContentLoaded
+            document.addEventListener("astro:page-load", function () {
                 let isOpen = false;
                 const defaultEase = "power4.inOut";
 
-                gsap.set(".menu-logo img", { y: 50 });
+                gsap.set(".menu-logo div", { y: 50 });
                 gsap.set(".menu-link p", { y: 40 });
                 gsap.set(".menu-sub-item p", { y: 12 });
                 gsap.set(["#img-2, #img-3, #img-4"], { top: "150%" });
 
                 const openMenu = () => {
-                    gsap.to(".menu", {
-                        clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-                        pointerEvents: "all",
-                        duration: 1.25,
-                        ease: defaultEase,
-                    });
+                    // gsap.to(".menu", {
+                    //     clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+                    //     pointerEvents: "all",
+                    //     duration: 1.25,
+                    //     ease: defaultEase,
+                    // });
 
                     gsap.to(".hero", {
                         top: "-50%",
@@ -332,38 +360,55 @@
                         ease: defaultEase,
                     });
 
-                    gsap.to(".menu-logo img", {
+                    gsap.to(".menu-img", {
+                        opacity: 1,
+                        duration: 1.25,
+                        delay: 0.2,
+                        ease: defaultEase,
+                    });
+
+                    gsap.to(".menu-logo div", {
                         y: 0,
-                        duration: 1,
-                        delay: 0.75,
+                        duration: 1.25,
+                        delay: 0.25,
                         ease: "power3.out",
                     });
 
                     gsap.to(".menu-link p", {
                         y: 0,
-                        duration: 1,
+                        opacity: 1,
+                        duration: 1.25,
                         stagger: 0.075,
-                        delay: 1,
+                        delay: 0.25,
                         ease: "power3.out",
                     });
 
                     gsap.to(".menu-sub-item p", {
                         y: 0,
-                        duration: 0.75,
+                        duration: 1.25,
                         stagger: 0.05,
-                        delay: 1,
+                        delay: 0.25,
                         ease: "power3.out",
                     });
 
                     gsap.to(["#img-2, #img-3, #img-4"], {
                         top: "50%",
                         duration: 1.25,
-                        ease: defaultEase,
-                        stagger: 0.1,
+                        ease: "power3.out",
+                        // ease: defaultEase,
+                        stagger: 0.05,
                         delay: 0.25,
                         onComplete: () => {
                             gsap.set(".hero", { top: "50%" });
                             isOpen = !isOpen;
+
+                            // 在菜单打开完成后触发一次初始动画
+                            setTimeout(() => {
+                                // 模拟一个初始鼠标位置（稍微偏离中心点）
+                                mouse.x = cx + 100;
+                                mouse.y = cy - 50;
+                                update();
+                            }, 100);
                         },
                     });
                 };
@@ -393,7 +438,7 @@
                                 clipPath:
                                     "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
                             });
-                            gsap.set(".menu-logo img", { y: 50 });
+                            gsap.set(".menu-logo div", { y: 40 });
                             gsap.set(".menu-link p", { y: 40 });
                             gsap.set(".menu-sub-item p", { y: 12 });
                             gsap.set(".menu-items", { opacity: 1, top: "0px" });
@@ -409,6 +454,16 @@
                 // 页面加载时直接打开菜单
                 openMenu();
                 isOpen = true;
+
+                // 添加3秒延时后设置logo-hover的opacity为1
+                // setTimeout(() => {
+                    gsap.to(".logo-hover", {
+                        opacity: 1,
+                        duration: 0.5,
+                        delay: 5,
+                        ease: "power2.out"
+                    });
+                // }, 3000);
 
                 const menuImgContainer = document.querySelector(".menu-img");
                 const images = document.querySelectorAll(".menu-img img");
@@ -454,6 +509,14 @@
                     cx = window.innerWidth / 2;
                     cy = window.innerHeight / 2;
                 });
+
+                // 页面加载后也设置一个初始位置
+                // 这是为了防止用户在菜单打开前就看到静态图片
+                setTimeout(() => {
+                    mouse.x = cx + 50;
+                    mouse.y = cy + 50;
+                    update();
+                }, 500);
             });
         </script>
     </body>

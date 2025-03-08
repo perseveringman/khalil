@@ -1,6 +1,8 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
+import { ViewTransitions } from 'astro:transitions';
+import Nav from '../components/nav.astro';
 ---
 
 <!doctype html>
@@ -9,12 +11,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gregory Lalle Awwwards Rebuild | Codegrid</title>
+    <ViewTransitions />
     <style is:global>
       ::-webkit-scrollbar {
         display: none;
       }
 
       body {
+        background-color: #000;
         font-family: "system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
       }
 
@@ -110,7 +114,7 @@
       .img {
         /* flex: 1; */
         width: 200px;
-        background-color: lightgray;
+        background-color: #fff;
         overflow: hidden;
       }
 
@@ -128,6 +132,7 @@
       }
 
       .index .mask h1 {
+        color: #fff;
         position: relative;
         will-change: transform;
       }
@@ -175,20 +180,20 @@
       .symbol {
         width: 12px;
         height: 12px;
-        background-color: #000;
+        background-color: #fff;
         clip-path: polygon(0 50%, 100% 100%, 100% 0);
       }
 
       .name {
-        height: 18px;
+        height: 24px;
       }
 
       .name p {
-        color: gray;
+        color: rgba(255, 255, 255, 0.5);
       }
 
       .name.active p {
-        color: #000;
+        color: #fff;
       }
 
       .preview-img {
@@ -241,6 +246,7 @@
         margin-bottom: 0.5em;
         margin-right: 1em;
         width: 80px;
+        color: #fff;
       }
 
       .song-list ul {
@@ -250,7 +256,7 @@
       .song-list li {
         font-size: 14px;
         margin-bottom: 0.5em;
-        color: #666;
+        color: #fff;
       }
 
       .footer p {
@@ -262,6 +268,7 @@
     </style>
   </head>
   <body>
+    <Nav />
     <div class="whitespace w-1"></div>
 
     <div class="gallery">
@@ -573,7 +580,7 @@
       gsap.registerPlugin(ScrollTrigger)
 
 
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("astro:page-load", () => {
         gsap.registerPlugin(ScrollTrigger);
 
         // 初始化滚动处理器
@@ -607,6 +614,8 @@
                 "assets/project1/img2.jpg",
                 "assets/project1/img3.jpg",
                 "assets/project1/img4.jpg",
+                "assets/project1/img5.jpg",
+                "assets/project1/img6.jpg",
               ],
             },
             {
@@ -702,6 +711,12 @@
         // 根据居中的.img元素更新预览图片
         const previewImg = document.querySelector(".preview-img img");
         const imgElements = document.querySelectorAll(".img img");
+
+        // 设置初始预览图片为第一个图片元素
+        if (imgElements.length > 0) {
+          previewImg.src = imgElements[0].src;
+        }
+
         imgElements.forEach((img) => {
           ScrollTrigger.create({
             trigger: img,
@@ -714,7 +729,7 @@
 
         // 指示器移动和项目名称激活
         const indicator = document.querySelector(".indicator");
-        const indicatorStep = 18;
+        const indicatorStep = 24;
         const names = gsap.utils.toArray(".name");
         const songLists = gsap.utils.toArray(".song-list");
         gsap.set(".indicator", { top: "0px" });

@@ -1,8 +1,461 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Gallery from '../components/Gallery.astro';
+// Astro组件的前端部分（frontmatter）
+// 这里可以放置导入语句和服务器端代码
+import { ViewTransitions } from 'astro:transitions';
+import Nav from '../components/nav.astro';
 ---
 
-<Layout title="SICK Image Gallery | Codegrid">
-  <Gallery />
-</Layout> 
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gregory Lalle Awwwards Rebuild | Codegrid</title>
+    <ViewTransitions />
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        font-family: "PP Neue Montreal";
+        background-color: #fff;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-image: url("./assets/img1.jpg");
+        background-size: cover;
+      }
+
+      .revealers {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        z-index: 2;
+      }
+
+      .revealer {
+        flex: 1;
+        width: 100%;
+        background-color: #fff;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+
+      .images {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        transform-origin: center center;
+        will-change: transform;
+      }
+
+      .img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.5);
+        width: 100%;
+        height: 100%;
+        visibility: visible;
+        will-change: transform;
+        opacity: 0;
+      }
+
+      .img:first-child {
+        opacity: 1;
+      }
+
+      .images.stacked-container {
+        position: fixed;
+        left: 2em;
+        bottom: 2em;
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 1em;
+        transform: none;
+        will-change: transform;
+      }
+
+      .img.stacked {
+        position: relative;
+        width: 150px;
+        height: 100px;
+        transform: none;
+        top: auto;
+        left: auto;
+        opacity: 1;
+        will-change: transform;
+      }
+
+      .hero-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .site-logo {
+        position: absolute;
+        top: 2em;
+        left: 2em;
+        display: flex;
+      }
+
+      .site-logo {
+        display: flex;
+        gap: 1em;
+      }
+
+      .site-logo h1 {
+        color: #000;
+        font-family: "PP Neue Montreal";
+        font-size: 5vw;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+
+      .site-logo h1 sup {
+        position: absolute;
+        top: -0.125em;
+        font-size: 2rem;
+      }
+
+      .nav {
+        position: absolute;
+        right: 0;
+        width: 50%;
+        padding: 2em;
+        display: flex;
+        justify-content: flex-end;
+        gap: 1em;
+      }
+
+      .nav .nav-item {
+        position: relative;
+      }
+
+      .nav .nav-item p {
+        position: relative;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .team-img {
+        position: absolute;
+        right: 2em;
+        bottom: 2em;
+        width: 40%;
+        height: 50%;
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      }
+
+      .team-img img {
+        filter: saturate(0);
+      }
+
+      .site-info {
+        position: absolute;
+        bottom: 2em;
+        left: 2em;
+        width: 50%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .site-info .row {
+        display: flex;
+        gap: 2em;
+      }
+
+      .site-info .row .col {
+        flex: 1;
+      }
+
+      .site-info h2 {
+        font-size: 25px;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+
+      .site-info p {
+        text-transform: uppercase;
+        font-family: "Apercu Mono Pro";
+        font-size: 11px;
+        font-weight: 500;
+        color: #000;
+      }
+
+      .site-info .row:nth-child(2) .col:nth-child(2) {
+        display: flex;
+      }
+
+      .address,
+      .socials {
+        flex: 1;
+      }
+
+      .address p,
+      .socials p {
+        line-height: 1.25;
+      }
+
+      .word,
+      .nav-item,
+      .line {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+
+      .word h1,
+      .nav-item p,
+      .site-info h2 .line span,
+      .line p {
+        position: relative;
+        will-change: transform;
+      }
+
+      .site-info h2 .line span {
+        display: block;
+        transform: translateY(100%);
+      }
+
+      .word h1,
+      .nav-item p,
+      .line p {
+        transform: translateY(100%);
+      }
+    </style>
+  </head>
+  <body>
+    <Nav />
+    <div class="container">
+      <div class="revealers">
+        <div class="revealer r-1"></div>
+        <div class="revealer r-2"></div>
+      </div>
+
+      <div class="images">
+        <div class="img"><img src="./assets/img1.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/img2.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/img3.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/img4.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/img5.jpg" alt="" /></div>
+        <div class="img main"><img src="./assets/img6.jpg" alt="" /></div>
+        <div class="img main"><img src="./assets/img7.jpg" alt="" /></div>
+        <div class="img main"><img src="./assets/img8.jpg" alt="" /></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="site-logo">
+          <div class="word">
+            <h1>Khalil</h1>
+          </div>
+          <div class="word">
+            <h1>Fong<sup>&copy;</sup></h1>
+          </div>
+        </div>
+
+        <div class="nav">
+          <div class="nav-item">
+            <p>About</p>
+          </div>
+          <div class="nav-item">
+            <p>Work</p>
+          </div>
+          <div class="nav-item">
+            <p>Journal</p>
+          </div>
+          <div class="nav-item">
+            <p>Contact</p>
+          </div>
+        </div>
+
+        <div class="team-img">
+          <img src="./assets/img3.jpg" alt="" />
+        </div>
+
+        <div class="site-info">
+          <div class="row">
+            <div class="col">
+              <div class="line"><p>Featured Works</p></div>
+            </div>
+            <div class="col">
+              <h2>
+                Arc is a contemporary fashion brand redefining elegance with
+                timeless designs and innovative aesthetics.
+              </h2>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col"></div>
+            <div class="col">
+              <div class="address">
+                <div class="line"><p>Arc Studio</p></div>
+                <div class="line"><p>Riverstone Building</p></div>
+                <div class="line"><p>- 28 Orchard Lane</p></div>
+                <div class="line"><p>N1 4DX</p></div>
+              </div>
+
+              <div class="socials">
+                <div class="line"><p>SayHi@Arc.com</p></div>
+                <br />
+                <div class="line"><p>Instagram</p></div>
+                <div class="line"><p>LinkedIn</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 使用Astro的客户端脚本标签 -->
+    <script>
+      // 导入GSAP和Lenis库
+      import { gsap } from "gsap";
+      import { CustomEase } from "gsap/CustomEase";
+      import { Flip } from "gsap/Flip";
+      import SplitType from "split-type";
+      gsap.registerPlugin(CustomEase)
+      gsap.registerPlugin(Flip)
+
+      // 将DOMContentLoaded改为astro:page-load
+      document.addEventListener("astro:page-load", () => {
+        CustomEase.create(
+          "hop",
+          "M0,0 C0.355,0.022 0.448,0.079 0.5,0.5 0.542,0.846 0.615,1 1,1 ",
+        );
+
+        CustomEase.create(
+          "hop2",
+          "M0,0 C0.078,0.617 0.114,0.716 0.255,0.828 0.373,0.922 0.561,1 1,1 ",
+        );
+
+        const splitH2 = new SplitType(".site-info h2", {
+          types: "lines",
+        });
+
+        splitH2.lines.forEach((line) => {
+          const text = line.textContent;
+          const wrapper = document.createElement("div");
+          wrapper.className = "line";
+          const span = document.createElement("span");
+          span.textContent = text;
+          wrapper.appendChild(span);
+          line.parentNode.replaceChild(wrapper, line);
+        });
+
+        const mainTl = gsap.timeline();
+        const revealerTl = gsap.timeline();
+        const scaleTl = gsap.timeline();
+
+        revealerTl
+          .to(".r-1", {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+            duration: 1.5,
+            ease: "hop",
+          })
+          .to(
+            ".r-2",
+            {
+              clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+              duration: 1.5,
+              ease: "hop",
+            },
+            "<",
+          );
+
+        scaleTl.to(".img:first-child", {
+          scale: 1,
+          duration: 2,
+          ease: "power4.inOut",
+        });
+
+        const images = document.querySelectorAll(".img:not(:first-child)");
+
+        images.forEach((img, index) => {
+          scaleTl.to(
+            img,
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 1.25,
+              ease: "power3.out",
+            },
+            ">-0.95",
+          );
+        });
+
+        mainTl
+          .add(revealerTl)
+          .add(scaleTl, "-=1.25")
+          .add(() => {
+            document
+              .querySelectorAll(".img:not(.main)")
+              .forEach((img) => img.remove());
+
+            const state = Flip.getState(".main");
+
+            const imagesContainer = document.querySelector(".images");
+            imagesContainer.classList.add("stacked-container");
+
+            document.querySelectorAll(".main").forEach((img, i) => {
+              img.classList.add("stacked");
+              img.style.order = i;
+              gsap.set(".img.stacked", {
+                clearProps: "transform,top,left",
+              });
+            });
+
+            return Flip.from(state, {
+              duration: 2,
+              ease: "hop",
+              absolute: true,
+              stagger: {
+                amount: -0.3,
+              },
+            });
+          })
+          .to(".word h1, .nav-item p, .line p, .site-info h2 .line span", {
+            y: 0,
+            duration: 3,
+            ease: "hop2",
+            stagger: 0.1,
+            delay: 1.25,
+          })
+          .to(".team-img", {
+            clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+            duration: 2,
+            ease: "hop",
+            delay: -4.75,
+          });
+      });
+    </script>
+  </body>
+</html>
