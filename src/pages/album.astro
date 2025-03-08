@@ -663,7 +663,6 @@ import Nav from '../components/nav.astro';
           ];
 
           // 设置每张图片的固定高度（像素）
-          const singleImageHeight = 300; // 每张图片的高度
           const imageGap = 20; // 图片之间的间距
 
           imagesContainers.forEach((container, projectIndex) => {
@@ -673,6 +672,9 @@ import Nav from '../components/nav.astro';
             projectImages.forEach((imagePath) => {
               const imgContainer = document.createElement("div");
               imgContainer.classList.add("img");
+              
+              // 根据图片内容动态调整高度
+              imgContainer.style.height = "auto";
 
               const img = document.createElement("img");
               img.src = imagePath;
@@ -682,10 +684,8 @@ import Nav from '../components/nav.astro';
               container.appendChild(imgContainer);
             });
 
-            // 计算并设置项目部分的高度
-            const totalHeight =
-              projectImages.length * singleImageHeight +
-              (projectImages.length - 1) * imageGap;
+            // 计算项目高度 - 使用图片数量作为基础，而不是固定高度
+            const totalHeight = projectImages.length * 200 + (projectImages.length - 1) * imageGap;
             // 找到当前项目容器并设置高度
             const projectContainer = container.closest(".project");
             if (projectContainer) {
