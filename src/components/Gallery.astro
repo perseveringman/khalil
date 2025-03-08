@@ -96,13 +96,14 @@
     for (let i = 0; i < totalImages; i++) {
       const img = document.createElement("div");
       img.className = "img";
-      img.style.height = `${getRandomHeight(30, 40)}px`;
+      img.style.height = `${getRandomHeight(60, 80)}px`;
 
       img.style.transform = "translate3d(0,0,0) scale(0)";
       img.style.willChange = "transform";
 
       const imgElement = document.createElement("img");
-      const randomImageNumber = Math.floor(Math.random() * 50) + 1;
+      const randomImageNumber = (i % 50) + 1;
+      // const randomImageNumber = Math.floor(Math.random() * 50) + 1;
       imgElement.src = `/assets/img${randomImageNumber}.jpg`;
 
       imgElement.loading = "lazy";
