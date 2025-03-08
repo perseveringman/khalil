@@ -22,7 +22,7 @@ import { ViewTransitions } from "astro:transitions";
       body {
         width: 100%;
         height: 100%;
-        font-family: "PP Neue Montreal";
+        /* font-family: "PP Neue Montreal"; */
         background-color: #fff;
       }
 
@@ -370,8 +370,9 @@ import { ViewTransitions } from "astro:transitions";
 
       // 将DOMContentLoaded改为astro:page-load
       document.addEventListener("astro:page-load", () => {
-        CustomEase.create(
-          "hop",
+        try {
+          CustomEase.create(
+            "hop",
           "M0,0 C0.355,0.022 0.448,0.079 0.5,0.5 0.542,0.846 0.615,1 1,1 ",
         );
 
@@ -479,6 +480,10 @@ import { ViewTransitions } from "astro:transitions";
             ease: "hop",
             delay: -4.75,
           });
+        } catch (error) {
+          console.error(error);
+          location.reload();
+        }
       });
     </script>
   </body>

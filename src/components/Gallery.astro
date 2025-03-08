@@ -50,8 +50,8 @@
     const zoomOutBtn = document.getElementById("zoom-out");
     const zoomInBtn = document.getElementById("zoom-in");
     const dragLayer = document.querySelector("#drag-layer");
-    const totalRows = 30;
-    const imagesPerRow = 20;
+    const totalRows = 10;
+    const imagesPerRow = 10;
     const totalImages = totalRows * imagesPerRow;
     let isZoomed = false;
     const images = [];
@@ -98,7 +98,7 @@
     for (let i = 0; i < totalImages; i++) {
       const img = document.createElement("div");
       img.className = "img";
-      img.style.height = `${getRandomHeight(60, 80)}px`;
+      img.style.height = `${getRandomHeight(120, 140)}px`;
 
       img.style.transform = "translate3d(0,0,0) scale(0)";
       img.style.willChange = "transform";

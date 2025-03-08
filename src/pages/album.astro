@@ -1,8 +1,8 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
-import { ViewTransitions } from 'astro:transitions';
-import Nav from '../components/nav.astro';
+import { ViewTransitions } from "astro:transitions";
+import Nav from "../components/nav.astro";
 ---
 
 <!doctype html>
@@ -211,7 +211,7 @@ import Nav from '../components/nav.astro';
         right: 0;
         width: 8px;
         height: 100vh;
-        background-color: #000;
+        background-color: #fff;
         transform-origin: top;
         transform: scaleY(0);
       }
@@ -577,352 +577,357 @@ import Nav from '../components/nav.astro';
       import { ScrollTrigger } from "gsap/ScrollTrigger";
       import Lenis from "lenis";
 
-      gsap.registerPlugin(ScrollTrigger)
-
+      gsap.registerPlugin(ScrollTrigger);
 
       document.addEventListener("astro:page-load", () => {
-        gsap.registerPlugin(ScrollTrigger);
+        try {
+          gsap.registerPlugin(ScrollTrigger);
 
-        // 初始化滚动处理器
-        const lenis = new Lenis();
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-          lenis.raf(time * 750);
-        });
-        gsap.ticker.lagSmoothing(0);
+          // 初始化滚动处理器
+          const lenis = new Lenis();
+          lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add((time) => {
+            lenis.raf(time * 750);
+          });
+          gsap.ticker.lagSmoothing(0);
 
-        // 辅助函数
-        function splitTextIntoSpans(selector) {
-          const elements = document.querySelectorAll(selector);
-          elements.forEach((element) => {
-            const [firstDigit, secondDigit] = element.innerText;
-            element.innerHTML = `
+          // 辅助函数
+          function splitTextIntoSpans(selector) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach((element) => {
+              const [firstDigit, secondDigit] = element.innerText;
+              element.innerHTML = `
           <div class="digit-wrapper">
             <span class="first">${firstDigit}</span><span class="second">${secondDigit}</span>
           </div>
         `;
-          });
-        }
-
-        function populateGallery() {
-          const imagesContainers = document.querySelectorAll(".images");
-          const projectsData = [
-            {
-              name: "项目1",
-              images: [
-                "assets/project1/img1.jpg",
-                "assets/project1/img2.jpg",
-                "assets/project1/img3.jpg",
-                "assets/project1/img4.jpg",
-                "assets/project1/img5.jpg",
-                "assets/project1/img6.jpg",
-              ],
-            },
-            {
-              name: "项目2",
-              images: [
-                "assets/project2/img1.jpg",
-                "assets/project2/img2.jpg",
-                "assets/project2/img3.jpg",
-                "assets/project2/img4.jpg",
-              ],
-            },
-            {
-              name: "项目3",
-              images: ["assets/project3/img1.jpg"],
-            },
-            {
-              name: "项目4",
-              images: ["assets/project4/img1.jpg"],
-            },
-            {
-              name: "项目5",
-              images: ["assets/project5/img1.jpg"],
-            },
-            {
-              name: "项目6",
-              images: ["assets/project6/img1.jpg"],
-            },
-            {
-              name: "项目7",
-              images: ["assets/project7/img1.jpg"],
-            },
-            {
-              name: "项目8",
-              images: ["assets/project8/img1.jpg"],
-            },
-            {
-              name: "项目9",
-              images: ["assets/project9/img1.jpg"],
-            },
-            {
-              name: "项目10",
-              images: ["assets/project10/img1.jpg"],
-            },
-            // 根据需要添加更多项目
-          ];
-
-          // 设置每张图片的固定高度（像素）
-          const imageGap = 20; // 图片之间的间距
-
-          imagesContainers.forEach((container, projectIndex) => {
-            if (projectIndex >= projectsData.length) return;
-
-            const projectImages = projectsData[projectIndex].images;
-            projectImages.forEach((imagePath) => {
-              const imgContainer = document.createElement("div");
-              imgContainer.classList.add("img");
-              
-              // 根据图片内容动态调整高度
-              imgContainer.style.height = "auto";
-
-              const img = document.createElement("img");
-              img.src = imagePath;
-              img.alt = `${projectsData[projectIndex].name} 图片`;
-              imgContainer.appendChild(img);
-
-              container.appendChild(imgContainer);
             });
+          }
 
-            // 计算项目高度 - 使用图片数量作为基础，而不是固定高度
-            const totalHeight = projectImages.length * 200 + (projectImages.length - 1) * imageGap;
-            // 找到当前项目容器并设置高度
-            const projectContainer = container.closest(".project");
-            if (projectContainer) {
-              projectContainer.style.height = `${totalHeight}px`;
-            }
-          });
-        }
+          function populateGallery() {
+            const imagesContainers = document.querySelectorAll(".images");
+            const projectsData = [
+              {
+                name: "项目1",
+                images: [
+                  "assets/project1/img1.jpg",
+                  "assets/project1/img2.jpg",
+                  "assets/project1/img3.jpg",
+                  "assets/project1/img4.jpg",
+                  "assets/project1/img5.jpg",
+                  "assets/project1/img6.jpg",
+                ],
+              },
+              {
+                name: "项目2",
+                images: [
+                  "assets/project2/img1.jpg",
+                  "assets/project2/img2.jpg",
+                  "assets/project2/img3.jpg",
+                  "assets/project2/img4.jpg",
+                ],
+              },
+              {
+                name: "项目3",
+                images: ["assets/project3/img1.jpg"],
+              },
+              {
+                name: "项目4",
+                images: ["assets/project4/img1.jpg"],
+              },
+              {
+                name: "项目5",
+                images: ["assets/project5/img1.jpg"],
+              },
+              {
+                name: "项目6",
+                images: ["assets/project6/img1.jpg"],
+              },
+              {
+                name: "项目7",
+                images: ["assets/project7/img1.jpg"],
+              },
+              {
+                name: "项目8",
+                images: ["assets/project8/img1.jpg"],
+              },
+              {
+                name: "项目9",
+                images: ["assets/project9/img1.jpg"],
+              },
+              {
+                name: "项目10",
+                images: ["assets/project10/img1.jpg"],
+              },
+              // 根据需要添加更多项目
+            ];
 
-        // 分割文本并填充画廊
-        splitTextIntoSpans(".mask h1");
-        populateGallery();
+            // 设置每张图片的固定高度（像素）
+            const imageGap = 20; // 图片之间的间距
 
-        // 进度条
-        ScrollTrigger.create({
-          trigger: "body",
-          start: "top top",
-          end: "bottom bottom",
-          onUpdate: (self) => {
-            gsap.set(".progress-bar", { scaleY: self.progress });
-          },
-        });
+            imagesContainers.forEach((container, projectIndex) => {
+              if (projectIndex >= projectsData.length) return;
 
-        // 根据居中的.img元素更新预览图片
-        const previewImg = document.querySelector(".preview-img img");
-        const imgElements = document.querySelectorAll(".img img");
+              const projectImages = projectsData[projectIndex].images;
+              projectImages.forEach((imagePath) => {
+                const imgContainer = document.createElement("div");
+                imgContainer.classList.add("img");
 
-        // 设置初始预览图片为第一个图片元素
-        if (imgElements.length > 0 && previewImg) {
-          previewImg.src = imgElements[0].src;
-        }
+                // 根据图片内容动态调整高度
+                imgContainer.style.height = "auto";
 
-        imgElements.forEach((img) => {
+                const img = document.createElement("img");
+                img.src = imagePath;
+                img.alt = `${projectsData[projectIndex].name} 图片`;
+                imgContainer.appendChild(img);
+
+                container.appendChild(imgContainer);
+              });
+
+              // 计算项目高度 - 使用图片数量作为基础，而不是固定高度
+              const totalHeight =
+                projectImages.length * 200 +
+                (projectImages.length - 1) * imageGap;
+              // 找到当前项目容器并设置高度
+              const projectContainer = container.closest(".project");
+              if (projectContainer) {
+                projectContainer.style.height = `${totalHeight}px`;
+              }
+            });
+          }
+
+          // 分割文本并填充画廊
+          splitTextIntoSpans(".mask h1");
+          populateGallery();
+
+          // 进度条
           ScrollTrigger.create({
-            trigger: img,
-            start: "top 50%",
-            end: "bottom 50%",
-            onEnter: () => previewImg && (previewImg.src = img.src),
-            onEnterBack: () => previewImg && (previewImg.src = img.src),
-          });
-        });
-
-        // 指示器移动和项目名称激活
-        const indicator = document.querySelector(".indicator");
-        const indicatorStep = 24;
-        const names = gsap.utils.toArray(".name");
-        const songLists = gsap.utils.toArray(".song-list");
-        gsap.set(".indicator", { top: "0px" });
-
-        const projects = gsap.utils.toArray(".project");
-        projects.forEach((project, index) => {
-          ScrollTrigger.create({
-            trigger: project,
-            start: "top 50%",
-            end: "bottom 50%",
-            onEnter: () => {
-              gsap.to(indicator, {
-                top: Math.max(0, index * indicatorStep) + "px",
-                duration: 0.3,
-                ease: "power2.out",
-              });
-
-              names.forEach((name, i) =>
-                name.classList.toggle("active", i === index),
-              );
-
-              // 同步切换歌曲列表
-              songLists.forEach((songList, i) => {
-                const isActive = i === index;
-                songList.classList.toggle("active", isActive);
-
-                if (isActive) {
-                  gsap.fromTo(
-                    songList,
-                    { y: 20, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.75, ease: "power2.out" },
-                  );
-                }
-              });
-            },
-            onLeaveBack: () => {
-              const targetPosition =
-                index - 1 < 0 ? 0 : (index - 1) * indicatorStep;
-              gsap.to(indicator, {
-                top: targetPosition + "px",
-                duration: 0.3,
-                ease: "power2.out",
-              });
-
-              const prevIndex = index - 1 < 0 ? 0 : index - 1;
-              names.forEach((name, i) =>
-                name.classList.toggle("active", i === prevIndex),
-              );
-
-              // 同步切换歌曲列表（向后滚动时）
-              songLists.forEach((songList, i) => {
-                const isActive = i === prevIndex;
-                songList.classList.toggle("active", isActive);
-
-                if (isActive) {
-                  gsap.fromTo(
-                    songList,
-                    { y: -20, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.75, ease: "power2.out" },
-                  );
-                }
-              });
-            },
-          });
-        });
-        // Track scroll velocity
-        let activeIndex = -1;
-        let scrollVelocity = 0;
-        // 遮罩动画
-        projects.forEach((project, i) => {
-          const mask = project.querySelector(".mask");
-          const digitWrapper = project.querySelector(".digit-wrapper");
-          const firstDigit = project.querySelector(".first");
-          const secondDigit = project.querySelector(".second");
-
-          gsap.set([mask, digitWrapper, firstDigit, secondDigit], { y: 0 });
-          gsap.set(mask, { position: "absolute", top: 0 });
-
-          ScrollTrigger.create({
-            trigger: project,
-            start: "top bottom",
-            end: "bottom top",
-            anticipatePin: 1,
-            fastScrollEnd: true,
-            preventOverlaps: true,
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
             onUpdate: (self) => {
-              const projectRect = project.getBoundingClientRect();
-              const windowCenter = window.innerHeight / 2;
-              const nextProject = projects[i + 1];
-              const velocityAdjustment = Math.min(scrollVelocity * 0.1, 100);
-              const pushPoint =
-                window.innerHeight *
-                (0.85 + velocityAdjustment / window.innerHeight);
-
-              if (projectRect.top <= windowCenter) {
-                if (!mask.isFixed) {
-                  mask.isFixed = true;
-                  gsap.set(mask, { position: "fixed", top: "50vh" });
-                }
-
-                if (nextProject) {
-                  const nextRect = nextProject.getBoundingClientRect();
-
-                  if (nextRect.top <= pushPoint && activeIndex !== i + 1) {
-                    gsap.killTweensOf([
-                      mask,
-                      digitWrapper,
-                      firstDigit,
-                      secondDigit,
-                    ]);
-
-                    activeIndex = i + 1;
-                    gsap.to(mask, {
-                      y: -80,
-                      duration: 0.3,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                    gsap.to(digitWrapper, {
-                      y: -80,
-                      duration: 0.5,
-                      delay: 0.5,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                    gsap.to(firstDigit, {
-                      y: -80,
-                      duration: 0.75,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                    gsap.to(secondDigit, {
-                      y: -80,
-                      duration: 0.75,
-                      delay: 0.1,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                  }
-                }
-              } else {
-                mask.isFixed = false;
-                gsap.set(mask, { position: "absolute", top: 0 });
-              }
-
-              if (self.direction === -1 && projectRect.top > windowCenter) {
-                mask.isFixed = false;
-                gsap.set(mask, { position: "absolute", top: 0 });
-
-                if (i > 0 && activeIndex === i) {
-                  const prevProject = projects[i - 1];
-                  if (prevProject) {
-                    const prevMask = prevProject.querySelector(".mask");
-                    const prevWrapper =
-                      prevProject.querySelector(".digit-wrapper");
-                    const prevFirst = prevProject.querySelector(".first");
-                    const prevSecond = prevProject.querySelector(".second");
-
-                    gsap.killTweensOf([
-                      prevMask,
-                      prevWrapper,
-                      prevFirst,
-                      prevSecond,
-                    ]);
-
-                    activeIndex = i - 1;
-                    gsap.to([prevMask, prevWrapper], {
-                      y: 0,
-                      duration: 0.3,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                    gsap.to(prevFirst, {
-                      y: 0,
-                      duration: 0.75,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                    gsap.to(prevSecond, {
-                      y: 0,
-                      duration: 0.75,
-                      delay: 0.1,
-                      ease: "power2.out",
-                      overwrite: true,
-                    });
-                  }
-                }
-              }
+              gsap.set(".progress-bar", { scaleY: self.progress });
             },
           });
-        });
+
+          // 根据居中的.img元素更新预览图片
+          const previewImg = document.querySelector(".preview-img img");
+          const imgElements = document.querySelectorAll(".img img");
+
+          // 设置初始预览图片为第一个图片元素
+          if (imgElements.length > 0 && previewImg) {
+            previewImg.src = imgElements[0].src;
+          }
+
+          imgElements.forEach((img) => {
+            ScrollTrigger.create({
+              trigger: img,
+              start: "top 50%",
+              end: "bottom 50%",
+              onEnter: () => previewImg && (previewImg.src = img.src),
+              onEnterBack: () => previewImg && (previewImg.src = img.src),
+            });
+          });
+
+          // 指示器移动和项目名称激活
+          const indicator = document.querySelector(".indicator");
+          const indicatorStep = 24;
+          const names = gsap.utils.toArray(".name");
+          const songLists = gsap.utils.toArray(".song-list");
+          gsap.set(".indicator", { top: "0px" });
+
+          const projects = gsap.utils.toArray(".project");
+          projects.forEach((project, index) => {
+            ScrollTrigger.create({
+              trigger: project,
+              start: "top 50%",
+              end: "bottom 50%",
+              onEnter: () => {
+                gsap.to(indicator, {
+                  top: Math.max(0, index * indicatorStep) + "px",
+                  duration: 0.3,
+                  ease: "power2.out",
+                });
+
+                names.forEach((name, i) =>
+                  name.classList.toggle("active", i === index),
+                );
+
+                // 同步切换歌曲列表
+                songLists.forEach((songList, i) => {
+                  const isActive = i === index;
+                  songList.classList.toggle("active", isActive);
+
+                  if (isActive) {
+                    gsap.fromTo(
+                      songList,
+                      { y: 20, opacity: 0 },
+                      { y: 0, opacity: 1, duration: 0.75, ease: "power2.out" },
+                    );
+                  }
+                });
+              },
+              onLeaveBack: () => {
+                const targetPosition =
+                  index - 1 < 0 ? 0 : (index - 1) * indicatorStep;
+                gsap.to(indicator, {
+                  top: targetPosition + "px",
+                  duration: 0.3,
+                  ease: "power2.out",
+                });
+
+                const prevIndex = index - 1 < 0 ? 0 : index - 1;
+                names.forEach((name, i) =>
+                  name.classList.toggle("active", i === prevIndex),
+                );
+
+                // 同步切换歌曲列表（向后滚动时）
+                songLists.forEach((songList, i) => {
+                  const isActive = i === prevIndex;
+                  songList.classList.toggle("active", isActive);
+
+                  if (isActive) {
+                    gsap.fromTo(
+                      songList,
+                      { y: -20, opacity: 0 },
+                      { y: 0, opacity: 1, duration: 0.75, ease: "power2.out" },
+                    );
+                  }
+                });
+              },
+            });
+          });
+          // Track scroll velocity
+          let activeIndex = -1;
+          let scrollVelocity = 0;
+          // 遮罩动画
+          projects.forEach((project, i) => {
+            const mask = project.querySelector(".mask");
+            const digitWrapper = project.querySelector(".digit-wrapper");
+            const firstDigit = project.querySelector(".first");
+            const secondDigit = project.querySelector(".second");
+
+            gsap.set([mask, digitWrapper, firstDigit, secondDigit], { y: 0 });
+            gsap.set(mask, { position: "absolute", top: 0 });
+
+            ScrollTrigger.create({
+              trigger: project,
+              start: "top bottom",
+              end: "bottom top",
+              anticipatePin: 1,
+              fastScrollEnd: true,
+              preventOverlaps: true,
+              onUpdate: (self) => {
+                const projectRect = project.getBoundingClientRect();
+                const windowCenter = window.innerHeight / 2;
+                const nextProject = projects[i + 1];
+                const velocityAdjustment = Math.min(scrollVelocity * 0.1, 100);
+                const pushPoint =
+                  window.innerHeight *
+                  (0.85 + velocityAdjustment / window.innerHeight);
+
+                if (projectRect.top <= windowCenter) {
+                  if (!mask.isFixed) {
+                    mask.isFixed = true;
+                    gsap.set(mask, { position: "fixed", top: "50vh" });
+                  }
+
+                  if (nextProject) {
+                    const nextRect = nextProject.getBoundingClientRect();
+
+                    if (nextRect.top <= pushPoint && activeIndex !== i + 1) {
+                      gsap.killTweensOf([
+                        mask,
+                        digitWrapper,
+                        firstDigit,
+                        secondDigit,
+                      ]);
+
+                      activeIndex = i + 1;
+                      gsap.to(mask, {
+                        y: -80,
+                        duration: 0.3,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                      gsap.to(digitWrapper, {
+                        y: -80,
+                        duration: 0.5,
+                        delay: 0.5,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                      gsap.to(firstDigit, {
+                        y: -80,
+                        duration: 0.75,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                      gsap.to(secondDigit, {
+                        y: -80,
+                        duration: 0.75,
+                        delay: 0.1,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                    }
+                  }
+                } else {
+                  mask.isFixed = false;
+                  gsap.set(mask, { position: "absolute", top: 0 });
+                }
+
+                if (self.direction === -1 && projectRect.top > windowCenter) {
+                  mask.isFixed = false;
+                  gsap.set(mask, { position: "absolute", top: 0 });
+
+                  if (i > 0 && activeIndex === i) {
+                    const prevProject = projects[i - 1];
+                    if (prevProject) {
+                      const prevMask = prevProject.querySelector(".mask");
+                      const prevWrapper =
+                        prevProject.querySelector(".digit-wrapper");
+                      const prevFirst = prevProject.querySelector(".first");
+                      const prevSecond = prevProject.querySelector(".second");
+
+                      gsap.killTweensOf([
+                        prevMask,
+                        prevWrapper,
+                        prevFirst,
+                        prevSecond,
+                      ]);
+
+                      activeIndex = i - 1;
+                      gsap.to([prevMask, prevWrapper], {
+                        y: 0,
+                        duration: 0.3,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                      gsap.to(prevFirst, {
+                        y: 0,
+                        duration: 0.75,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                      gsap.to(prevSecond, {
+                        y: 0,
+                        duration: 0.75,
+                        delay: 0.1,
+                        ease: "power2.out",
+                        overwrite: true,
+                      });
+                    }
+                  }
+                }
+              },
+            });
+          });
+        } catch (error) {
+          console.error(error);
+          location.reload();
+        }
       });
     </script>
   </body>
 </html>
-
