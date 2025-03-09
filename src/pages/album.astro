@@ -591,6 +591,61 @@ import Nav from "../components/nav.astro";
           });
           gsap.ticker.lagSmoothing(0);
 
+          // 页面加载时的动画初始化
+          function setupInitialAnimations() {
+            // // 为所有 .mask 元素设置初始状态并添加动画
+            // const masks = gsap.utils.toArray(".mask");
+            // masks.forEach((mask, index) => {
+            //   gsap.set(mask, { opacity: 0, y: 30 });
+            //   gsap.to(mask, {
+            //     opacity: 1,
+            //     y: 0,
+            //     duration: 0.8,
+            //     delay: 0.1 + index * 0.15, // 依次显示，第一个稍快出现
+            //     ease: "power2.out"
+            //   });
+            // });
+            
+            // 为当前激活的歌曲列表添加渐入动画
+            const activeSongList = document.querySelector(".song-list.active");
+            if (activeSongList) {
+              gsap.set(activeSongList, { opacity: 0, y: 20 });
+              gsap.to(activeSongList, {
+                opacity: 1, 
+                y: 0,
+                duration: 1,
+                delay: 0.5, // 在数字之后显示
+                ease: "power2.out"
+              });
+            }
+            
+            // 为项目名称列表添加渐入动画
+            const projectNames = document.querySelector(".project-names");
+            if (projectNames) {
+              const nameItems = projectNames.querySelectorAll(".name");
+              gsap.set(projectNames, { opacity: 0 });
+              gsap.set(nameItems, { opacity: 0, x: -20 });
+              
+              // 先显示容器
+              gsap.to(projectNames, {
+                opacity: 1,
+                duration: 0.5,
+                delay: 0.3,
+                ease: "power2.out"
+              });
+              
+              // 然后依次显示每个项目名称
+              gsap.to(nameItems, {
+                opacity: 1,
+                x: 0,
+                stagger: 0.05,
+                duration: 0.5,
+                delay: 0.5,
+                ease: "power2.out"
+              });
+            }
+          }
+
           // 辅助函数
           function splitTextIntoSpans(selector) {
             const elements = document.querySelectorAll(selector);
@@ -610,54 +665,70 @@ import Nav from "../components/nav.astro";
               {
                 name: "项目1",
                 images: [
-                  "assets/project1/img1.jpg",
-                  "assets/project1/img2.jpg",
-                  "assets/project1/img3.jpg",
-                  "assets/project1/img4.jpg",
-                  "assets/project1/img5.jpg",
-                  "assets/project1/img6.jpg",
+                  "https://r2.khalil-fong.com/assets/project1/img1.jpg",
+                  "https://r2.khalil-fong.com/assets/project1/img2.jpg",
+                  "https://r2.khalil-fong.com/assets/project1/img3.jpg",
+                  "https://r2.khalil-fong.com/assets/project1/img4.jpg",
+                  "https://r2.khalil-fong.com/assets/project1/img5.jpg",
+                  "https://r2.khalil-fong.com/assets/project1/img6.jpg",
                 ],
               },
               {
                 name: "项目2",
                 images: [
-                  "assets/project2/img1.jpg",
-                  "assets/project2/img2.jpg",
-                  "assets/project2/img3.jpg",
-                  "assets/project2/img4.jpg",
+                  "https://r2.khalil-fong.com/assets/project2/img1.jpg",
+                  "https://r2.khalil-fong.com/assets/project2/img2.jpg",
+                  "https://r2.khalil-fong.com/assets/project2/img3.jpg",
+                  "https://r2.khalil-fong.com/assets/project2/img4.jpg",
                 ],
               },
               {
                 name: "项目3",
-                images: ["assets/project3/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project3/img1.jpg",
+                ],
               },
               {
                 name: "项目4",
-                images: ["assets/project4/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project4/img1.jpg",
+                ],
               },
               {
                 name: "项目5",
-                images: ["assets/project5/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project5/img1.jpg",
+                ],
               },
               {
                 name: "项目6",
-                images: ["assets/project6/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project6/img1.jpg",
+                ],
               },
               {
                 name: "项目7",
-                images: ["assets/project7/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project7/img1.jpg",
+                ],
               },
               {
                 name: "项目8",
-                images: ["assets/project8/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project8/img1.jpg",
+                ],
               },
               {
                 name: "项目9",
-                images: ["assets/project9/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project9/img1.jpg",
+                ],
               },
               {
                 name: "项目10",
-                images: ["assets/project10/img1.jpg"],
+                images: [
+                  "https://r2.khalil-fong.com/assets/project10/img1.jpg",
+                ],
               },
               // 根据需要添加更多项目
             ];
@@ -669,9 +740,12 @@ import Nav from "../components/nav.astro";
               if (projectIndex >= projectsData.length) return;
 
               const projectImages = projectsData[projectIndex].images;
-              projectImages.forEach((imagePath) => {
+              projectImages.forEach((imagePath, imgIndex) => {
                 const imgContainer = document.createElement("div");
                 imgContainer.classList.add("img");
+                
+                // 初始化时设置为不可见
+                gsap.set(imgContainer, { opacity: 0, y: 30 });
 
                 // 根据图片内容动态调整高度
                 imgContainer.style.height = "auto";
@@ -682,6 +756,15 @@ import Nav from "../components/nav.astro";
                 imgContainer.appendChild(img);
 
                 container.appendChild(imgContainer);
+                
+                // 添加渐入动画，带有延迟以创建序列效果
+                gsap.to(imgContainer, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.8,
+                  delay: 0.1 * imgIndex + 0.3 * projectIndex,
+                  ease: "power2.out"
+                });
               });
 
               // 计算项目高度 - 使用图片数量作为基础，而不是固定高度
@@ -699,6 +782,9 @@ import Nav from "../components/nav.astro";
           // 分割文本并填充画廊
           splitTextIntoSpans(".mask h1");
           populateGallery();
+          
+          // 添加初始动画
+          setupInitialAnimations();
 
           // 进度条
           ScrollTrigger.create({
@@ -712,11 +798,54 @@ import Nav from "../components/nav.astro";
 
           // 根据居中的.img元素更新预览图片
           const previewImg = document.querySelector(".preview-img img");
+          const previewContainer = document.querySelector(".preview-img");
           const imgElements = document.querySelectorAll(".img img");
 
           // 设置初始预览图片为第一个图片元素
           if (imgElements.length > 0 && previewImg) {
             previewImg.src = imgElements[0].src;
+            // 初始预览图片的淡入动画
+            gsap.fromTo(previewContainer, 
+              { opacity: 0, y: 20 }, 
+              { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+            );
+          }
+
+          // 辅助函数：使用动画更新预览图片
+          function updatePreviewWithAnimation(newSrc) {
+            if (!previewImg || previewImg.src === newSrc) return;
+            
+            // 先淡出
+            gsap.to(previewContainer, {
+              opacity: 0, 
+              y: 10, 
+              duration: 0.3, 
+              ease: "power2.in",
+              onComplete: () => {
+                // 更新图片源
+                previewImg.src = newSrc;
+                
+                // 图片加载完成后淡入
+                previewImg.onload = () => {
+                  gsap.to(previewContainer, {
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.5, 
+                    ease: "power2.out"
+                  });
+                };
+                
+                // 防止图片已缓存的情况
+                if (previewImg.complete) {
+                  gsap.to(previewContainer, {
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.5, 
+                    ease: "power2.out"
+                  });
+                }
+              }
+            });
           }
 
           imgElements.forEach((img) => {
@@ -724,8 +853,8 @@ import Nav from "../components/nav.astro";
               trigger: img,
               start: "top 50%",
               end: "bottom 50%",
-              onEnter: () => previewImg && (previewImg.src = img.src),
-              onEnterBack: () => previewImg && (previewImg.src = img.src),
+              onEnter: () => updatePreviewWithAnimation(img.src),
+              onEnterBack: () => updatePreviewWithAnimation(img.src),
             });
           });
 
@@ -923,6 +1052,42 @@ import Nav from "../components/nav.astro";
               },
             });
           });
+
+          // 在scroll触发器初始化后添加项目切换时的图片动画
+          function setupProjectImageAnimations() {
+            const projects = gsap.utils.toArray(".project");
+            
+            projects.forEach((project) => {
+              const images = project.querySelectorAll(".img");
+              
+              ScrollTrigger.create({
+                trigger: project,
+                start: "top 70%",
+                onEnter: () => {
+                  gsap.to(images, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                    overwrite: true
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(images, {
+                    opacity: 0.7,
+                    y: 20,
+                    duration: 0.5,
+                    stagger: 0.05,
+                    ease: "power2.in",
+                    overwrite: true
+                  });
+                }
+              });
+            });
+          }
+
+          setupProjectImageAnimations();
         } catch (error) {
           console.error(error);
           location.reload();

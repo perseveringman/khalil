@@ -19,8 +19,8 @@ import Nav from "../components/nav.astro";
         <div class="slider">
             <div class="slider-images">
                 <div class="img">
-                    <img src="./assets/video/img1.jpg" alt="" />
-                    <video src="./assets/video/video1.mp4" muted loop></video>
+                    <img src="https://r2.khalil-fong.com/assets/video/img1.jpg" alt="" />
+                    <video src="https://r2.khalil-fong.com/assets/video/video1.mp4" muted loop></video>
                 </div>
             </div>
 
@@ -55,19 +55,19 @@ import Nav from "../components/nav.astro";
                 <button class="preview-nav prev">&lt;</button>
                 <div class="slider-preview">
                     <div class="preview active">
-                        <img src="./assets/video/img1.jpg" alt="" />
+                        <img src="https://r2.khalil-fong.com/assets/video/img1.jpg" alt="" />
                     </div>
                     <div class="preview">
-                        <img src="./assets/video/img2.jpg" alt="" />
+                        <img src="https://r2.khalil-fong.com/assets/video/img2.jpg" alt="" />
                     </div>
                     <div class="preview">
-                        <img src="./assets/video/img3.jpg" alt="" />
+                        <img src="https://r2.khalil-fong.com/assets/video/img3.jpg" alt="" />
                     </div>
                     <div class="preview">
-                        <img src="./assets/video/img4.jpg" alt="" />
+                        <img src="https://r2.khalil-fong.com/assets/video/img4.jpg" alt="" />
                     </div>
                     <div class="preview">
-                        <img src="./assets/video/img5.jpg" alt="" />
+                        <img src="https://r2.khalil-fong.com/assets/video/img5.jpg" alt="" />
                     </div>
                 </div>
                 <button class="preview-nav next">&gt;</button>
@@ -579,11 +579,11 @@ import Nav from "../components/nav.astro";
             slideImg.classList.add("img");
 
             const slideImgElem = document.createElement("img");
-            slideImgElem.src = `./assets/video/img${currentImg}.jpg`;
+            slideImgElem.src = `https://r2.khalil-fong.com/assets/video/img${currentImg}.jpg`;
             gsap.set(slideImgElem, { x: direction === "left" ? -500 : 500 });
 
             const slideVideoElem = document.createElement("video");
-            slideVideoElem.src = `./assets/video/video${currentImg}.mp4`;
+            slideVideoElem.src = `https://r2.khalil-fong.com/assets/video/video${currentImg}.mp4`;
             slideVideoElem.muted = isMuted;
             slideVideoElem.controls = showControls;
             slideVideoElem.loop = true;

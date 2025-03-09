@@ -78,7 +78,7 @@
     };
 
     for (let i = 1; i <= 43; i++) {
-      preloadImage(`/assets/gallery/img${i}.jpg`);
+      preloadImage(`https://r2.khalil-fong.com/assets/gallery/img${i}.jpg`);
     }
 
     function throttle(callback, delay) {
@@ -106,7 +106,7 @@
       const imgElement = document.createElement("img");
       const randomImageNumber =(i % 43) + 1;
       // const randomImageNumber = Math.floor(Math.random() * 50) + 1;
-      imgElement.src = `/assets/gallery/img${randomImageNumber}.jpg`;
+      imgElement.src = `https://r2.khalil-fong.com/assets/gallery/img${randomImageNumber}.jpg`;
 
       imgElement.loading = "lazy";
       imgElement.decoding = "async";
