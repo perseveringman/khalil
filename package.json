@@ -6,8 +6,10 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro build && wrangler pages dev",
+    "astro": "astro",
+		"deploy": "astro build && wrangler pages deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.3",
@@ -16,5 +18,9 @@
     "gsap": "^3.12.7",
     "lenis": "^1.2.3",
     "split-type": "^0.3.4"
-  }
+  },
+  "devDependencies": {
+		"@cloudflare/workers-types": "^4.20250303.0",
+		"wrangler": "^3.114.0"
+	}
 }
