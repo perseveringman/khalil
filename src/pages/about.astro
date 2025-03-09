@@ -41,17 +41,20 @@ import Layout from '../layouts/Layout.astro';
 
                 <div class="menu-footer">
                     <div class="menu-sub-col">
-                        <div class="menu-sub-item"><p>Connect</p></div>
                         <br />
-                        <div class="menu-sub-item"><p><a href="mailto:zhourambo@gmail.com">Email</a></p></div>
-                        <div class="menu-sub-item"><p><a href="mailto:zhourambo@gmail.com">zhourambo@gmail.com</a></p></div>
                         <br />
-                        <div class="menu-sub-item"><p><a href="https://x.com/zybworld" target="_blank">X</a></p></div>
-                        <div class="menu-sub-item"></div>
-                        <br />
+                        <div class="menu-sub-item"><div><a href="mailto:zhourambo@gmail.com">邮箱</a></div></div>
+                        <div class="menu-sub-item"><div><a href="mailto:zhourambo@gmail.com">zhourambo@gmail.com</a></div></div>
                         <br />
 
-                        <div class="menu-sub-item"><p>@2025  <span style="position: relative;top: -2px;">-</span> ∞</p></div>
+                        <div class="menu-sub-item"><div><a href="https://x.com/zybworld" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwLDAsMjU2LDI1NiIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgZmlsbC1ydWxlPSJub256ZXJvIj48ZyBmaWxsPSIjZmZmZmZmIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48ZyB0cmFuc2Zvcm09InNjYWxlKDEwLjY2NjY3LDEwLjY2NjY3KSI+PHBhdGggZD0iTTQuNDA0MywzYy0wLjY0NywwIC0xLjAyNjI1LDAuNzI4NzcgLTAuNjU2MjUsMS4yNTk3N2w1Ljk4ODI4LDguNTU4NTlsLTYuMDExNzIsNy4wMjczNGMtMC4zODksMC40NTQgLTAuMDY2NzUsMS4xNTQzIDAuNTMxMjUsMS4xNTQzaDAuNjY0MDZjMC4yOTMsMCAwLjU3MTcyLC0wLjEyODU2IDAuNzYxNzIsLTAuMzUxNTZsNS4yMzgyOCwtNi4xMzY3MmwzLjk0MzM2LDUuNjM0NzdjMC4zNzUsMC41MzQgMC45ODY2NywwLjg1MzUyIDEuNjM4NjcsMC44NTM1MmgzLjMzMzk4YzAuNjQ3LDAgMS4wMjYyNSwtMC43Mjc4MSAwLjY1NjI1LC0xLjI1NzgxbC02LjMxODM2LC05LjA0Mjk3bDUuNzI2NTYsLTYuNzA4OThjMC4zMzIsLTAuMzkgMC4wNTQ5NywtMC45OTAyMyAtMC40NTcwMywtMC45OTAyM2gtMC44NDU3Yy0wLjI5MiwwIC0wLjU2OTc3LDAuMTI3NjEgLTAuNzU5NzcsMC4zNDk2MWwtNC44NDE4LDUuNjYwMTZsLTMuNjAxNTYsLTUuMTU0M2MtMC4zNzQsLTAuNTM2IC0wLjk4NDY3LC0wLjg1NTQ3IC0xLjYzODY3LC0wLjg1NTQ3eiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" /></a></div></div>
+                        <br />
+
+                        <div class="menu-sub-item"><div>P.S:本网站在电脑端访问最佳</div></div>
+                        <br />
+
+
+                        <div class="menu-sub-item"><div>@2025  <span style="position: relative;top: -2px;">-</span> ∞</div></div>
 
                         <!-- <div class="menu-sub-item"><p>Explore</p></div>
                         <div class="menu-sub-item"><p>Break</p></div>
@@ -107,7 +110,7 @@ import Layout from '../layouts/Layout.astro';
 
             gsap.set(".menu-logo div", { y: 50 });
             gsap.set(".menu-link p", { y: 40 });
-            gsap.set(".menu-sub-item p", { y: 12 });
+            gsap.set(".menu-sub-item div", { y: 12 });
             gsap.set(["#img-2, #img-3, #img-4"], { top: "150%" });
 
             const openMenu = () => {
@@ -148,7 +151,7 @@ import Layout from '../layouts/Layout.astro';
                     ease: "power3.out",
                 });
 
-                gsap.to(".menu-sub-item p", {
+                gsap.to(".menu-sub-item div", {
                     y: 0,
                     opacity: 1,
                     duration: 1.25,
@@ -206,7 +209,7 @@ import Layout from '../layouts/Layout.astro';
                         });
                         gsap.set(".menu-logo div", { y: 40 });
                         gsap.set(".menu-link p", { y: 40 });
-                        gsap.set(".menu-sub-item p", { y: 12 });
+                        gsap.set(".menu-sub-item div", { y: 12 });
                         gsap.set(".menu-items", { opacity: 1, top: "0px" });
                         gsap.set(["#img-2, #img-3, #img-4"], {
                             top: "150%",
@@ -298,7 +301,7 @@ import Layout from '../layouts/Layout.astro';
     body {
         width: 100%;
         height: 100%;
-        font-family: "Saans TRIAL";
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         background: #000;
     }
 
@@ -310,7 +313,7 @@ import Layout from '../layouts/Layout.astro';
 
     p,a {
         color: #fff;
-        font-family: "Akkurat Mono";
+        /* font-family: "Saans TRIAL"; */
         /* font-size: 12px; */
         font-weight: lighter;
         /* text-transform: uppercase; */
@@ -489,7 +492,7 @@ import Layout from '../layouts/Layout.astro';
 
     .menu-link p {
         position: relative;
-        font-family: "Saans TRIAL";
+        /* font-family: "Saans TRIAL"; */
         font-size: 36px;
         font-weight: lighter;
         opacity: 0;
@@ -509,7 +512,9 @@ import Layout from '../layouts/Layout.astro';
         flex: 1;
     }
 
-    .menu-sub-item p {
+    .menu-sub-item div {
+        font-weight: lighter;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         position: relative;
         opacity: 0;
     }
@@ -519,9 +524,60 @@ import Layout from '../layouts/Layout.astro';
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     }
 
-    @media (max-width: 900px) {
+    .menu-sub-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* 移动端响应式布局 */
+    @media (max-width: 768px) {
+        .menu {
+            flex-direction: column;
+            padding: 1em;
+            gap: 1em;
+        }
+        
         .menu-img {
-            display: none;
+            flex: 1;
+            height: 40vh;
+        }
+        
+        .menu-items {
+            flex: 1;
+            padding: 1em;
+        }
+        
+        .menu-links {
+            margin-top: 20px;
+        }
+        
+        .menu-link p {
+            font-size: 24px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        .menu-footer {
+            flex-direction: column;
+        }
+        
+        .menu-sub-item div {
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .menu-link p {
+            /* font-size: 20px; */
+        }
+        
+        .menu-img {
+            height: 30vh;
+        }
+        
+        .menu-items {
+            padding: 0.5em;
         }
     }
 </style>
