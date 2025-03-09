@@ -265,6 +265,140 @@ import Nav from "../components/nav.astro";
         left: 40%;
         text-transform: none;
       }
+
+      /* 响应式布局调整 */
+      @media (max-width: 768px) {
+        .mobile-mask {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+        .song-list h3 {
+          font-size: 16px;
+          font-weight: lighter;
+        }
+
+        .song-list li {
+          font-size: 12px;
+          font-weight: lighter;
+        }
+
+        h1 {
+          font-size: 40px;
+        }
+
+        nav {
+          padding: 1em;
+        }
+
+        .nav-items {
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          width: fit-content;
+          transform: none;
+          top: 1em;
+        }
+
+        .whitespace.w-1 {
+          height: 30vh;
+        }
+
+        .whitespace.w-2 {
+          height: 25vh;
+        }
+
+        .gallery {
+          gap: 10em;
+        }
+
+        .project {
+          flex-direction: column;
+          height: auto !important;
+        }
+
+        .index {
+          padding-left: 1em;
+          margin-bottom: 1em;
+          height: 70px;
+        }
+
+        .images {
+          height: auto;
+        }
+
+        .img {
+          width: 90vw;
+          margin: 0 auto;
+        }
+
+        .project-names {
+          position: fixed;
+          width: 90vw;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          top: 8vh;
+          bottom: auto;
+          transform: none;
+        }
+
+        .project-names p {
+          font-size: 12px;
+        }
+
+        .song-list-container {
+          width: 90vw;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          top: auto;
+          bottom: 0;
+          height: 35vh;
+          transform: none;
+        }
+
+        .preview-img {
+          width: 50vw;
+          height: 50vw;
+          max-width: 50vw;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          top: 36vh;
+          transform: none;
+        }
+
+        .indicator {
+          right: auto;
+          left: -24px;
+        }
+      }
+
+      /* 更小屏幕的额外调整 */
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 32px;
+        }
+
+        .gallery {
+          gap: 8em;
+        }
+
+        .preview-img {
+          width: 60vw;
+          height: 60vw;
+          max-width: 60vw;
+          bottom: 15vh;
+        }
+      }
     </style>
   </head>
   <body>
@@ -335,7 +469,7 @@ import Nav from "../components/nav.astro";
     </div>
 
     <div class="whitespace w-2"></div>
-
+    <div class="mobile-mask"></div>
     <div class="project-names">
       <div class="indicator">
         <div class="symbol"></div>
@@ -591,30 +725,19 @@ import Nav from "../components/nav.astro";
           });
           gsap.ticker.lagSmoothing(0);
 
-          // 页面加载时的动画初始化
+          // 检测设备类型并相应调整动画
+          const isMobile = window.innerWidth <= 768;
+
           function setupInitialAnimations() {
-            // // 为所有 .mask 元素设置初始状态并添加动画
-            // const masks = gsap.utils.toArray(".mask");
-            // masks.forEach((mask, index) => {
-            //   gsap.set(mask, { opacity: 0, y: 30 });
-            //   gsap.to(mask, {
-            //     opacity: 1,
-            //     y: 0,
-            //     duration: 0.8,
-            //     delay: 0.1 + index * 0.15, // 依次显示，第一个稍快出现
-            //     ease: "power2.out"
-            //   });
-            // });
-            
-            // 为当前激活的歌曲列表添加渐入动画
+            // 在手机端调整延迟时间和动画持续时间
             const activeSongList = document.querySelector(".song-list.active");
             if (activeSongList) {
               gsap.set(activeSongList, { opacity: 0, y: 20 });
               gsap.to(activeSongList, {
                 opacity: 1, 
                 y: 0,
-                duration: 1,
-                delay: 0.5, // 在数字之后显示
+                duration: isMobile ? 0.7 : 1,
+                delay: isMobile ? 0.3 : 0.5,
                 ease: "power2.out"
               });
             }
@@ -733,8 +856,8 @@ import Nav from "../components/nav.astro";
               // 根据需要添加更多项目
             ];
 
-            // 设置每张图片的固定高度（像素）
-            const imageGap = 20; // 图片之间的间距
+            // 在手机端减少图片之间的间距
+            const imageGap = isMobile ? 10 : 20;
 
             imagesContainers.forEach((container, projectIndex) => {
               if (projectIndex >= projectsData.length) return;
@@ -767,10 +890,10 @@ import Nav from "../components/nav.astro";
                 });
               });
 
-              // 计算项目高度 - 使用图片数量作为基础，而不是固定高度
-              const totalHeight =
-                projectImages.length * 200 +
-                (projectImages.length - 1) * imageGap;
+              // 在手机端计算不同的高度
+              const totalHeight = isMobile ? 
+                projectImages.length * 150 + (projectImages.length - 1) * imageGap :
+                projectImages.length * 200 + (projectImages.length - 1) * imageGap;
               // 找到当前项目容器并设置高度
               const projectContainer = container.closest(".project");
               if (projectContainer) {
@@ -1088,6 +1211,16 @@ import Nav from "../components/nav.astro";
           }
 
           setupProjectImageAnimations();
+
+          // 为移动设备添加方向检测和滚动优化
+          if (isMobile) {
+            window.addEventListener('resize', () => {
+              ScrollTrigger.refresh();
+            });
+            
+            // 为移动设备优化滚动性能
+            lenis.options.smoothWheel = false;
+          }
         } catch (error) {
           console.error(error);
           location.reload();
