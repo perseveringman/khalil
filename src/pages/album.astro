@@ -1,7 +1,7 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
-import { ViewTransitions } from "astro:transitions";
+// import { ViewTransitions } from "astro:transitions";
 import Nav from "../components/nav.astro";
 ---
 
@@ -11,7 +11,7 @@ import Nav from "../components/nav.astro";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Khalil Fong</title>
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
     <style is:global>
       ::-webkit-scrollbar {
         display: none;
@@ -579,7 +579,7 @@ import Nav from "../components/nav.astro";
 
       gsap.registerPlugin(ScrollTrigger);
 
-      document.addEventListener("astro:page-load", () => {
+      document.addEventListener("DOMContentLoaded", () => {
         try {
           gsap.registerPlugin(ScrollTrigger);
 

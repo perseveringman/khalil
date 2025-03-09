@@ -44,13 +44,13 @@ import Layout from '../layouts/Layout.astro';
                         <div class="menu-sub-item"><p>Connect</p></div>
                         <br />
                         <div class="menu-sub-item"><p><a href="mailto:zhourambo@gmail.com">Email</a></p></div>
-                        <div class="menu-sub-item"><p>zhourambo@gmail.com</p></div>
+                        <div class="menu-sub-item"><p><a href="mailto:zhourambo@gmail.com">zhourambo@gmail.com</a></p></div>
                         <br />
-                        <div class="menu-sub-item"><p><a href="https://x.com/zybworld">X</a></p></div>
+                        <div class="menu-sub-item"><p><a href="https://x.com/zybworld" target="_blank">X</a></p></div>
                         <div class="menu-sub-item"></div>
                         <br />
 
-                        <div class="menu-sub-item"><p>@2025</p></div>
+                        <div class="menu-sub-item"><p>@2025 - ∞</p></div>
 
                         <!-- <div class="menu-sub-item"><p>Explore</p></div>
                         <div class="menu-sub-item"><p>Break</p></div>
@@ -100,7 +100,7 @@ import Layout from '../layouts/Layout.astro';
         import { gsap } from "gsap";
         
         // 使用Astro特定的页面加载事件替代DOMContentLoaded
-        document.addEventListener("astro:page-load", function () {
+        document.addEventListener("DOMContentLoaded", function () {
             let isOpen = false;
             const defaultEase = "power4.inOut";
 
@@ -149,6 +149,7 @@ import Layout from '../layouts/Layout.astro';
 
                 gsap.to(".menu-sub-item p", {
                     y: 0,
+                    opacity: 1,
                     duration: 1.25,
                     stagger: 0.05,
                     delay: 0.25,
@@ -509,6 +510,7 @@ import Layout from '../layouts/Layout.astro';
 
     .menu-sub-item p {
         position: relative;
+        opacity: 0;
     }
 
     .menu-link,

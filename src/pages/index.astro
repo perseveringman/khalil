@@ -1,7 +1,7 @@
 ---
 // Astro组件的前端部分（frontmatter）
 // 这里可以放置导入语句和服务器端代码
-import { ViewTransitions } from "astro:transitions";
+// import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -10,7 +10,7 @@ import { ViewTransitions } from "astro:transitions";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Khalil Fong</title>
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
     <style is:global>
       * {
         margin: 0;
@@ -37,8 +37,9 @@ import { ViewTransitions } from "astro:transitions";
         width: 100vw;
         height: 100vh;
         overflow: hidden;
-        background-image: url("./assets/img1.jpg");
+        background-image: url("./assets/index/bg.jpg");
         background-size: cover;
+        backdrop-filter: blur(20px)
       }
 
       .revealers {
@@ -130,11 +131,11 @@ import { ViewTransitions } from "astro:transitions";
       }
 
       .site-logo h1 {
-        color: #000;
+        color: #fff;
         font-family: "PP Neue Montreal";
         font-size: 5vw;
         font-weight: 500;
-        line-height: 1;
+        line-height: 1.4;
         letter-spacing: -0.01em;
       }
 
@@ -172,7 +173,7 @@ import { ViewTransitions } from "astro:transitions";
         display: flex;
       }
       .nav a {
-        margin-left: 10px;
+        margin-left: 15px;
         color: #fff;
         font-family: "Akkurat Mono";
         font-size: 18px;
@@ -217,15 +218,15 @@ import { ViewTransitions } from "astro:transitions";
       .site-info h2 {
         font-size: 25px;
         font-weight: 500;
-        line-height: 1.25;
+        line-height: 2;
       }
 
-      .site-info p {
-        text-transform: uppercase;
+      .site-info {
+        /* text-transform: uppercase; */
         font-family: "Apercu Mono Pro";
-        font-size: 11px;
-        font-weight: 500;
-        color: #000;
+        font-size: 12px;
+        font-weight: 400;
+        color: #fff;
       }
 
       .site-info .row:nth-child(2) .col:nth-child(2) {
@@ -281,14 +282,14 @@ import { ViewTransitions } from "astro:transitions";
       </div>
 
       <div class="images">
-        <div class="img"><img src="./assets/img1.jpg" alt="" /></div>
-        <div class="img"><img src="./assets/img2.jpg" alt="" /></div>
-        <div class="img"><img src="./assets/img3.jpg" alt="" /></div>
-        <div class="img"><img src="./assets/img4.jpg" alt="" /></div>
-        <div class="img"><img src="./assets/img5.jpg" alt="" /></div>
-        <div class="img main"><img src="./assets/img6.jpg" alt="" /></div>
-        <div class="img main"><img src="./assets/img7.jpg" alt="" /></div>
-        <div class="img main"><img src="./assets/img8.jpg" alt="" /></div>
+        <div class="img main"><img src="./assets/index/img1.jpg" alt="" /></div>
+        <div class="img main"><img src="./assets/index/img2.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/index/img3.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/index/img4.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/index/img5.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/index/img6.jpg" alt="" /></div>
+        <div class="img"><img src="./assets/index/img7.jpg" alt="" /></div>
+        <div class="img main"><img src="./assets/index/img8.jpg" alt="" /></div>
       </div>
 
       <div class="hero-content">
@@ -320,7 +321,7 @@ import { ViewTransitions } from "astro:transitions";
         </div>
 
         <div class="team-img">
-          <img src="./assets/img3.jpg" alt="" />
+          <img src="./assets/index/img3.jpg" alt="" />
         </div>
 
         <div class="site-info">
@@ -328,10 +329,16 @@ import { ViewTransitions } from "astro:transitions";
             <div class="col">
               <div class="line"><p>Featured Works</p></div>
             </div>
-            <div class="col">
+            <div class="col" style="margin-top: 80px;">
+              <!-- <h2>
+                感谢你的出现
+                <br />
+                过去的往事就如烟
+              </h2> -->
               <h2>
-                Arc is a contemporary fashion brand redefining elegance with
-                timeless designs and innovative aesthetics.
+                I framed your picture on my wall
+                <br />
+                说过的话 美丽的夏 都过完了
               </h2>
             </div>
           </div>
@@ -368,8 +375,8 @@ import { ViewTransitions } from "astro:transitions";
       gsap.registerPlugin(CustomEase);
       gsap.registerPlugin(Flip);
 
-      // 将DOMContentLoaded改为astro:page-load
-      document.addEventListener("astro:page-load", () => {
+      // 将DOMContentLoaded改为DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", () => {
         try {
           CustomEase.create(
             "hop",

@@ -45,7 +45,7 @@
 
 <script>
   import gsap from "gsap";
-  document.addEventListener("astro:page-load", () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const gallery = document.querySelector(".gallery");
     const zoomOutBtn = document.getElementById("zoom-out");
     const zoomInBtn = document.getElementById("zoom-in");
@@ -77,8 +77,8 @@
       return imageCache.get(src);
     };
 
-    for (let i = 1; i <= 50; i++) {
-      preloadImage(`/assets/img${i}.jpg`);
+    for (let i = 1; i <= 43; i++) {
+      preloadImage(`/assets/gallery/img${i}.jpg`);
     }
 
     function throttle(callback, delay) {
@@ -104,9 +104,9 @@
       img.style.willChange = "transform";
 
       const imgElement = document.createElement("img");
-      const randomImageNumber =(i % 50) + 1;
+      const randomImageNumber =(i % 43) + 1;
       // const randomImageNumber = Math.floor(Math.random() * 50) + 1;
-      imgElement.src = `/assets/img${randomImageNumber}.jpg`;
+      imgElement.src = `/assets/gallery/img${randomImageNumber}.jpg`;
 
       imgElement.loading = "lazy";
       imgElement.decoding = "async";
