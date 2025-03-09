@@ -120,8 +120,8 @@
 
       .site-logo {
         position: absolute;
-        top: 2em;
-        left: 2em;
+        top: 0em;
+        left: 1em;
         display: flex;
       }
 
@@ -134,7 +134,7 @@
         color: #fff;
         font-family: "PP Neue Montreal";
         font-size: 5vw;
-        font-weight: 500;
+        font-weight: lighter;
         line-height: 1.4;
         letter-spacing: -0.01em;
       }
@@ -162,7 +162,7 @@
       .nav .nav-item p {
         position: relative;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: lighter;
       } */
 
       .nav {
@@ -177,7 +177,7 @@
         color: #fff;
         font-family: "Akkurat Mono";
         font-size: 18px;
-        font-weight: 300;
+        font-weight: lighter;
         text-transform: uppercase;
         text-decoration: none;
       }
@@ -217,7 +217,7 @@
 
       .site-info h2 {
         font-size: 25px;
-        font-weight: 500;
+        font-weight: lighter;
         line-height: 2;
       }
 
@@ -225,7 +225,7 @@
         /* text-transform: uppercase; */
         font-family: "Apercu Mono Pro";
         font-size: 12px;
-        font-weight: 400;
+        font-weight: lighter;
         color: #fff;
       }
 
@@ -271,6 +271,22 @@
       .line p {
         transform: translateY(100%);
       }
+
+      .svg-logo {
+        width: 400px;
+        height: 100px;
+      }
+      
+      .logo-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      
+      .logo-path, .logo-circle {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+      }
     </style>
   </head>
   <body>
@@ -294,11 +310,27 @@
 
       <div class="hero-content">
         <div class="site-logo">
-          <div class="word">
-            <h1>Khalil</h1>
-          </div>
-          <div class="word">
-            <h1>Fong<sup>&copy;</sup></h1>
+          <div class="svg-logo">
+            <svg viewBox="0 0 700 100" class="logo-svg">
+              <!-- K -->
+              <path class="logo-path" d="M30,20h15v25l25-25h20l-30,35 30,35h-20l-25-25v25h-15V20z" fill="none" stroke="#fff" stroke-width="2"/>
+              <!-- H -->
+              <path class="logo-path" d="M100,20h15v25h20V20h15v70h-15V55h-20v35h-15V20z" fill="none" stroke="#fff" stroke-width="2"/>
+              <!-- A -->
+              <path class="logo-path" d="M165,90l5-15h25l5,15h15l-25-70h-15l-25,70H165z M178,60l7-20 7,20H178z" fill="none" stroke="#fff" stroke-width="2"/>
+              <!-- L -->
+              <path class="logo-path" d="M220,20h15v55h25v15h-40V20z" fill="none" stroke="#fff" stroke-width="2"/>
+              <!-- I -->
+              <path class="logo-path" d="M270,20h15v70h-15V20z" fill="none" stroke="#fff" stroke-width="2"/>
+              <!-- L -->
+              <path class="logo-path" d="M295,20h15v55h25v15h-40V20z" fill="none" stroke="#fff" stroke-width="2"/>
+              
+              <!-- 点号 -->
+              <circle class="logo-circle" cx="351" cy="84" r="7" fill="none" stroke="#fff" stroke-width="2"/>
+              
+              <!-- F -->
+              <path class="logo-path" d="M370,20h40v15h-25v15h20v15h-20v25h-15V20z" fill="none" stroke="#fff" stroke-width="2"/>
+            </svg>
           </div>
         </div>
 
@@ -327,9 +359,9 @@
         <div class="site-info">
           <div class="row">
             <div class="col">
-              <div class="line"><p>Featured Works</p></div>
+              <div class="line"><p></p></div>
             </div>
-            <div class="col" style="margin-top: 80px;">
+            <div class="col" style="margin-top: 80px; min-width: 400px;">
               <!-- <h2>
                 感谢你的出现
                 <br />
@@ -347,17 +379,17 @@
             <div class="col"></div>
             <div class="col">
               <div class="address">
-                <div class="line"><p>Arc Studio</p></div>
-                <div class="line"><p>Riverstone Building</p></div>
-                <div class="line"><p>- 28 Orchard Lane</p></div>
-                <div class="line"><p>N1 4DX</p></div>
+                <div class="line"><p></p></div>
+                <div class="line"><p></p></div>
+                <div class="line"><p></p></div>
+                <div class="line"><p></p></div>
               </div>
 
               <div class="socials">
-                <div class="line"><p>SayHi@Arc.com</p></div>
+                <div class="line"><p></p></div>
                 <br />
-                <div class="line"><p>Instagram</p></div>
-                <div class="line"><p>LinkedIn</p></div>
+                <div class="line"><p></p></div>
+                <div class="line"><p></p></div>
               </div>
             </div>
           </div>
@@ -365,9 +397,7 @@
       </div>
     </div>
 
-    <!-- 使用Astro的客户端脚本标签 -->
     <script>
-      // 导入GSAP和Lenis库
       import { gsap } from "gsap";
       import { CustomEase } from "gsap/CustomEase";
       import { Flip } from "gsap/Flip";
@@ -375,7 +405,6 @@
       gsap.registerPlugin(CustomEase);
       gsap.registerPlugin(Flip);
 
-      // 将DOMContentLoaded改为DOMContentLoaded
       document.addEventListener("DOMContentLoaded", () => {
         try {
           CustomEase.create(
@@ -443,6 +472,24 @@
           );
         });
 
+        // 添加SVG路径动画
+        const logoAnimation = gsap.timeline();
+        
+        logoAnimation.to(".logo-path, .logo-circle", {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          ease: "power2.inOut",
+          stagger: 0.1,
+          delay: 1.5
+        });
+        
+        logoAnimation.to(".logo-path, .logo-circle", {
+          fill: "#fff",
+          stroke: "transparent",
+          duration: 1,
+          ease: "power1.inOut"
+        });
+
         mainTl
           .add(revealerTl)
           .add(scaleTl, "-=1.25")
@@ -473,6 +520,7 @@
               },
             });
           })
+          .add(logoAnimation)
           .to(".word h1, .nav-item a, .line p, .site-info h2 .line span", {
             y: 0,
             opacity: 1,
@@ -480,13 +528,13 @@
             ease: "hop2",
             stagger: 0.1,
             delay: 1.25,
-          })
+          }, "<")
           .to(".team-img", {
             clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
             duration: 2,
             ease: "hop",
-            delay: -4.75,
-          });
+          }, "<")
+          ;
         } catch (error) {
           console.error(error);
           location.reload();
